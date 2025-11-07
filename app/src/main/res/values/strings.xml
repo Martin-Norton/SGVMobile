@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">InMobile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Martín Norton</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="inicio">inicio</string>
+    <string name="perfil">perfil</string>
+    <string name="inmuebles">inmuebles</string>
+    <string name="inquilinos">inquilinos</string>
+    <string name="contratos">contratos</string>
+    <string name="logout">logout\n</string>
+    <string name="ubicacion">Ubicacion</string>
+    <string name="mascotas">mascotas</string>
+    <string name="turnos">Turnos</string>
+    <string name="consultas">Consultas</string>
+    <string name="mi_perfil">Mi Perfil</string>
+    <string name="mis_mascotas">Mis Mascotas</string>
+    <string name="ubicaci_n_de_la_veterinaria">Ubicación de la Veterinaria</string>
+</resources>

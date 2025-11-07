@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".ui.turnos.CrearTurnoFragment">
+
+    <!-- Scroll interno por si el teclado sube -->
+    <ScrollView
+        android:id="@+id/scrollViewTurno"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSeleccionFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar fecha del turno"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="403dp"
+                android:layout_marginBottom="12dp"
+                android:calendarViewShown="true" />
+
+            <Button
+                android:id="@+id/btElegirDia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Elegir día"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tvHorariosDisponibles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Horarios disponibles"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/spHorarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/etMotivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Motivo de la consulta"
+                android:inputType="textCapSentences"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btCrearTurno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crear turno"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

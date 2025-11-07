@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/inicio"
+            android:title="@string/ubicaci_n_de_la_veterinaria" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/perfil"
+            android:title="@string/mi_perfil" />
+        <item
+            android:id="@+id/nav_mascotas"
+            android:icon="@drawable/mascotas"
+            android:title="@string/mis_mascotas" />
+        <item
+            android:id="@+id/turnosFragment"
+            android:icon="@drawable/turnos"
+            android:title="@string/turnos" />
+        <item
+            android:id="@+id/consultasFragment"
+            android:icon="@drawable/consultas"
+            android:title="@string/consultas" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/salir"
+            android:title="@string/logout" />
+    </group>
+</menu>

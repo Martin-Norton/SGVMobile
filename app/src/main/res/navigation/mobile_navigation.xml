@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_inicio">
+
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="com.tec.sgvmobile.ui.inicio.InicioFragment"
+        android:label="@string/inicio"
+        tools:layout="@layout/fragment_inicio2" />
+
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.tec.sgvmobile.ui.perfil.PerfilFragment"
+        android:label="@string/perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_mascotas"
+        android:name="com.tec.sgvmobile.ui.mascotas.MascotasFragment"
+        android:label="@string/mascotas"
+        tools:layout="@layout/fragment_mascotas" >
+        <action
+            android:id="@+id/action_nav_mascotas_to_detalleMascotaFragment"
+            app:destination="@id/detalleMascotaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_inquilinos"
+        android:name="com.tec.sgvmobile.ui.inquilinos.InquilinosFragment"
+        android:label="@string/inquilinos"
+        tools:layout="@layout/fragment_inquilinos" />
+    <fragment
+        android:id="@+id/nav_contratos"
+        android:name="com.tec.sgvmobile.ui.contratos.ContratosFragment"
+        android:label="@string/contratos"
+        tools:layout="@layout/fragment_contratos" >
+        <action
+            android:id="@+id/action_nav_contratos_to_detalleContratoFragment"
+            app:destination="@id/detalleContratoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.tec.sgvmobile.ui.logout.LogoutFragment"
+        android:label="@string/logout"
+        tools:layout="@layout/activity_logout" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.tec.sgvmobile.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/detalleContratoFragment"
+        android:name="com.tec.sgvmobile.ui.contratos.DetalleContratoFragment"
+        android:label="fragment_detalle_contrato"
+        tools:layout="@layout/fragment_detalle_contrato" >
+        <action
+            android:id="@+id/action_detalleContratoFragment_to_nav_contratos"
+            app:destination="@id/nav_contratos" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleMascotaFragment"
+        android:name="com.tec.sgvmobile.ui.mascotas.DetalleMascotaFragment"
+        android:label="DetalleMascotaFragment" >
+        <action
+            android:id="@+id/action_detalleMascotaFragment_to_nav_mascotas"
+            app:destination="@id/nav_mascotas" />
+    </fragment>
+    <fragment
+        android:id="@+id/crearMascotaFragment"
+        android:name="com.tec.sgvmobile.ui.mascotas.CrearMascotaFragment"
+        android:label="CrearMascotaFragment" >
+        <action
+            android:id="@+id/action_crearMascotaFragment_to_nav_mascotas"
+            app:destination="@id/nav_mascotas" />
+        <action
+            android:id="@+id/action_crearMascotaFragment_to_nav_mascotas2"
+            app:destination="@id/nav_mascotas" />
+    </fragment>
+    <fragment
+        android:id="@+id/turnosFragment"
+        android:name="com.tec.sgvmobile.ui.turnos.TurnosFragment"
+        android:label="fragment_turnos"
+        tools:layout="@layout/fragment_turnos" >
+        <action
+            android:id="@+id/action_turnosFragment_to_detalleTurnosFragment"
+            app:destination="@id/detalleTurnosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleTurnosFragment"
+        android:name="com.tec.sgvmobile.ui.turnos.DetalleTurnosFragment"
+        android:label="fragment_detalle_turnos"
+        tools:layout="@layout/fragment_detalle_turnos" >
+        <action
+            android:id="@+id/action_detalleTurnosFragment_to_turnosFragment"
+            app:destination="@id/turnosFragment" />
+        <action
+            android:id="@+id/action_detalleTurnosFragment_to_crearTurnoFragment"
+            app:destination="@id/crearTurnoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/crearTurnoFragment"
+        android:name="com.tec.sgvmobile.ui.turnos.CrearTurnoFragment"
+        android:label="fragment_crear_turno"
+        tools:layout="@layout/fragment_crear_turno" >
+        <action
+            android:id="@+id/action_crearTurnoFragment_to_detalleTurnosFragment"
+            app:destination="@id/detalleTurnosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consultasFragment"
+        android:name="com.tec.sgvmobile.ui.consultas.ConsultasFragment"
+        android:label="fragment_consultas"
+        tools:layout="@layout/fragment_consultas" >
+        <action
+            android:id="@+id/action_consultasFragment_to_filtrosConsultasFragment"
+            app:destination="@id/filtrosConsultasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filtrosConsultasFragment"
+        android:name="com.tec.sgvmobile.ui.consultas.FiltrosConsultasFragment"
+        android:label="fragment_filtros_consultas"
+        tools:layout="@layout/fragment_filtros_consultas" >
+        <action
+            android:id="@+id/action_filtrosConsultasFragment_to_consultasFragment"
+            app:destination="@id/consultasFragment" />
+        <action
+            android:id="@+id/action_filtrosConsultasFragment_to_resultadosBusquedaFragment"
+            app:destination="@id/resultadosBusquedaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultadosBusquedaFragment"
+        android:name="com.tec.sgvmobile.ui.consultas.ResultadosBusquedaFragment"
+        android:label="fragment_resultados_busqueda"
+        tools:layout="@layout/fragment_resultados_busqueda" >
+        <action
+            android:id="@+id/action_resultadosBusquedaFragment_to_consultasFragment"
+            app:destination="@id/consultasFragment" />
+    </fragment>
+</navigation>

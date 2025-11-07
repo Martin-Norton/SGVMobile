@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.consultas.FiltrosConsultasFragment">
+
+    <TextView
+        android:id="@+id/tvTituloFiltros"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Filtrar consultas"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Seleccioná el tipo de filtro que querés aplicar:"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloFiltros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:id="@+id/btFiltroMotivo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Por motivo"
+        app:layout_constraintTop_toBottomOf="@id/tvDescripcion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btFiltroMesActual"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Consultas de este mes"
+        app:layout_constraintTop_toBottomOf="@id/btFiltroMotivo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:id="@+id/btFiltroEntreFechas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Entre fechas"
+        app:layout_constraintTop_toBottomOf="@id/btFiltroMesActual"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/etMotivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:hint="Ingresar palabra clave del motivo"
+        android:inputType="text"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.642"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btFiltroEntreFechas" />
+
+    <EditText
+        android:id="@+id/etDesde"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Desde (aaaa-mm-dd)"
+        android:inputType="date"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btFiltroEntreFechas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etHasta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Hasta (aaaa-mm-dd)"
+        android:inputType="date"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/etDesde"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btBuscarConsultas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Buscar consultas"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/etHasta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btVolverFiltros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="204dp"
+        android:text="Volver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etMotivo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

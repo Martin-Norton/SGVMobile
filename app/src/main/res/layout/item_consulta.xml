@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tvFechaConsulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="01/11/2025 - 14:30"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMotivoConsulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Motivo: Vacunación anual"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFechaConsulta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/tvDiagnosticoConsulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Diagnóstico: Sin observaciones"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvMotivoConsulta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvTratamientoConsulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tratamiento: Aplicación de vacuna antirrábica"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvDiagnosticoConsulta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvVeterinarioConsulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Atendido por veterinario ID: 5"
+        android:textSize="13sp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/tvTratamientoConsulta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
