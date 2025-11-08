@@ -31,7 +31,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiClient {
-    public final static String BASE_URL = "http://127.0.0.1:5140/";
+    //public final static String BASE_URL = "http://192.168.0.104:5000/"; CASA CATA
+    public final static String BASE_URL = "http://192.168.0.4:5000/";
 
     public static InmoService getInmoService() {
         Gson gson = new GsonBuilder().setLenient()
@@ -77,7 +78,6 @@ public class ApiClient {
 
         @Multipart
         @PUT("api/mascotas/actualizar/{id}")
-            // solo funciona con https VER!!!
         Call<Void> actualizarMascota(
                 @Header("Authorization") String token,
                 @Path("id") int id,
@@ -126,16 +126,16 @@ public class ApiClient {
                 @Body CrearTurnoDto body
         );
 
-        //Fin Zona Turnos
+//Fin Zona Turnos
 //Zona Consultas
         @GET("api/consultas/mascotas-con-consultas")
-//Todas las mascotas de usuario loggeado que tienen consultas
+        //Todas las mascotas de usuario loggeado que tienen consultas
         Call<List<Mascota>> obtenerMascotasConConsultas(
                 @Header("Authorization") String token
         );
 
         @GET("api/consultas/por-mascota/{id}")
-// Consultas de una mascota en particular
+        // Consultas de una mascota en particular
         Call<List<Consulta>> obtenerConsultasPorMascota(
                 @Header("Authorization") String token,
                 @Path("id") int idMascota

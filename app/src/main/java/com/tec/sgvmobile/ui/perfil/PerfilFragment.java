@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentPerfilBinding;
 import com.tec.sgvmobile.models.Usuario;
 
@@ -24,6 +26,8 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(PerfilViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        fab.hide();
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mis Datos");
         View root = binding.getRoot();
 

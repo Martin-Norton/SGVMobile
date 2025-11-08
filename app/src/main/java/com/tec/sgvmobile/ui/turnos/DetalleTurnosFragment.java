@@ -5,17 +5,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentDetalleTurnosBinding;
 import com.tec.sgvmobile.models.Mascota;
 import com.tec.sgvmobile.models.Turno;
+
 import java.util.List;
 
 public class DetalleTurnosFragment extends Fragment {
@@ -28,12 +32,14 @@ public class DetalleTurnosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDetalleTurnosBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(DetalleTurnosViewModel.class);
-
-        if (getArguments() != null) {
-            mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
-            vm.cargarTurnosFuturos(mascota.getId());
-            binding.tvTituloMascota.setText("Turnos de " + mascota.getNombre());
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        if (fab != null) {
+            fab.hide();
         }
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Turnos Futuros");
+        mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
+        vm.cargarTurnosFuturos(mascota.getId());
+        binding.tvTituloMascota.setText("Turnos de " + mascota.getNombre());
 
         vm.getTurnosFuturos().observe(getViewLifecycleOwner(), new Observer<List<Turno>>() {
             @Override
@@ -43,13 +49,6 @@ public class DetalleTurnosFragment extends Fragment {
                 binding.listaTurnos.setAdapter(adapter);
             }
         });
-
-        binding.btNuevoTurno.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("mascotaBundle", mascota);
-            Navigation.findNavController(v).navigate(R.id.action_detalleTurnosFragment_to_crearTurnoFragment, bundle);
-        });
-
         return binding.getRoot();
     }
 }

@@ -20,13 +20,13 @@ import com.tec.sgvmobile.request.ApiClient;
 
 import java.util.List;
 
-public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTurnosAdapter.viewHolderMascota> {
+public class TodasLasMascotasAdapter extends RecyclerView.Adapter<TodasLasMascotasAdapter.viewHolderMascota> {
 
     private Context context;
     private List<Mascota> listado;
     private LayoutInflater li;
 
-    public MascotasConTurnosAdapter(Context context, List<Mascota> listado, LayoutInflater li) {
+    public TodasLasMascotasAdapter(Context context, List<Mascota> listado, LayoutInflater li) {
         this.context = context;
         this.listado = listado;
         this.li = li;
@@ -34,13 +34,13 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
 
     @NonNull
     @Override
-    public MascotasConTurnosAdapter.viewHolderMascota onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TodasLasMascotasAdapter.viewHolderMascota onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = li.inflate(R.layout.item_mascota, parent, false);
-        return new MascotasConTurnosAdapter.viewHolderMascota(itemView);
+        return new TodasLasMascotasAdapter.viewHolderMascota(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MascotasConTurnosAdapter.viewHolderMascota holder, int position) {
+    public void onBindViewHolder(@NonNull TodasLasMascotasAdapter.viewHolderMascota holder, int position) {
         Mascota mascotaActual = listado.get(position);
         holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
         Glide.with(context)
@@ -48,12 +48,12 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
                 .placeholder(R.drawable.mascotas)
                 .error("null")
                 .into(holder.imagen);
-        ((MascotasConTurnosAdapter.viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {
+        ((TodasLasMascotasAdapter.viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("mascotaBundle", mascotaActual);
-                Navigation.findNavController((Activity) context, R.id.nav_host_fragment_content_main).navigate(R.id.detalleTurnosFragment, bundle);
+                Navigation.findNavController((Activity) context, R.id.nav_host_fragment_content_main).navigate(R.id.crearTurnoFragment, bundle);
             }
         });
     }
@@ -75,5 +75,3 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
         }
     }
 }
-
-

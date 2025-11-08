@@ -46,7 +46,7 @@ public class MascotasConConsultasAdapter extends RecyclerView.Adapter<MascotasCo
         holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
         Glide.with(context)
                 .load(ApiClient.BASE_URL + mascotaActual.getImagen())
-                .placeholder(R.drawable.inmuebles)
+                .placeholder(R.drawable.mascotas)
                 .error("null")
                 .into(holder.imagen);
         ((MascotasConConsultasAdapter.viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {

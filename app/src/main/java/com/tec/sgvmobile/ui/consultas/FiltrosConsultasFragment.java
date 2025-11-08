@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentFiltrosConsultasBinding;
 import com.tec.sgvmobile.models.Consulta;
@@ -26,7 +28,7 @@ public class FiltrosConsultasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFiltrosConsultasBinding.inflate(inflater, container, false);
-
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filtrar consultas");
         vm = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(FiltrosConsultasViewModel.class);

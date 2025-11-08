@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentMascotasBinding;
 import com.tec.sgvmobile.models.Mascota;
 import com.tec.sgvmobile.ui.inmuebles.MascotasViewModel;
@@ -25,6 +28,8 @@ public class MascotasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(MascotasViewModel.class);
         binding = FragmentMascotasBinding.inflate(inflater, container, false);
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        fab.show();
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mis Mascotas");
         View root = binding.getRoot();
         vm.getlistaMascotas().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {

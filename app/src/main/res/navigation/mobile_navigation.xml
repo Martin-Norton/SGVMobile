@@ -138,4 +138,9 @@
             android:id="@+id/action_resultadosBusquedaFragment_to_consultasFragment"
             app:destination="@id/consultasFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/misMascotasParaTurnoFragment"
+        android:name="com.tec.sgvmobile.ui.turnos.MisMascotasParaTurnoFragment"
+        android:label="fragment_mis_mascotas_para_turno"
+        tools:layout="@layout/fragment_mis_mascotas_para_turno" />
 </navigation>

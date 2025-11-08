@@ -4,11 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentTurnosBinding;
 import com.tec.sgvmobile.models.Mascota;
 
@@ -21,6 +25,11 @@ public class TurnosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(TurnosViewModel.class);
         binding = FragmentTurnosBinding.inflate(inflater, container, false);
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        if (fab != null) {
+            fab.hide();
+        }
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mascotas con turnos");
         View root = binding.getRoot();
         vm.getListaMascotasConTurnos().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {
             @Override
@@ -29,6 +38,14 @@ public class TurnosFragment extends Fragment {
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                 binding.listaMascotasTurnos.setLayoutManager(glm);
                 binding.listaMascotasTurnos.setAdapter(ta);
+            }
+        });
+        binding.btNuevoTurno2.setVisibility(View.VISIBLE);
+        binding.btNuevoTurno2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v)
+                        .navigate(R.id.misMascotasParaTurnoFragment);
             }
         });
         vm.obtenerListaMascotasConTurnos();

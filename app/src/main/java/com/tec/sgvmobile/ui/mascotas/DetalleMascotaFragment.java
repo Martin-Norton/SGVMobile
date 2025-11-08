@@ -1,123 +1,123 @@
 package com.tec.sgvmobile.ui.mascotas;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.bumptech.glide.Glide;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentDetalleMascotaBinding;
 import com.tec.sgvmobile.models.Mascota;
-import com.tec.sgvmobile.request.ApiClient;
 
 public class DetalleMascotaFragment extends Fragment {
 
-    private DetalleMascotaViewModel mv;
+    private static final int REQUEST_PICK_IMAGE = 1001;
+
     private FragmentDetalleMascotaBinding binding;
-    private Mascota mascota;
-    private Uri nuevaImagenUri;
-    private Intent intent;
-    private ActivityResultLauncher<Intent> arlImagen;
-
-
-    public static DetalleMascotaFragment newInstance() {
-        return new DetalleMascotaFragment();
-    }
+    private DetalleMascotaViewModel vm;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mascota = new Mascota();
-        mv = new ViewModelProvider(this).get(DetalleMascotaViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentDetalleMascotaBinding.inflate(inflater, container, false);
+        vm = new ViewModelProvider(this).get(DetalleMascotaViewModel.class);
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        fab.hide();
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Detalles de la Mascota");
-        View view = binding.getRoot();
-        mv.getMmascota().observe(getViewLifecycleOwner(), new Observer<Mascota>() {
+
+        vm.getMascota().observe(getViewLifecycleOwner(), new Observer<Mascota>() {
             @Override
             public void onChanged(Mascota mascota) {
-                binding.etCodigo.setText(String.valueOf(mascota.getId()));
+                if (mascota == null) return;
                 binding.etNombreMascota.setText(mascota.getNombre());
                 binding.etEspecie.setText(mascota.getEspecie());
-                binding.etRaza.setText(String.valueOf(mascota.getRaza()));
+                binding.etRaza.setText(mascota.getRaza());
                 binding.etEdad.setText(String.valueOf(mascota.getEdad()));
-                binding.etSexo.setText(mascota.getSexo());
                 binding.etPeso.setText(String.valueOf(mascota.getPeso()));
-                String imagen = mascota.getImagen();
-                if (imagen != null) {
-                    if (imagen.startsWith("content://")) {
-                        Glide.with(getContext())
-                                .load(Uri.parse(imagen))
-                                .into(binding.ivFoto);
-                    } else {
-                        Glide.with(getContext())
-                                .load(ApiClient.BASE_URL + imagen)
-                                .into(binding.ivFoto);
-                    }
-                }
+                binding.etSexo.setText(mascota.getSexo());
+                vm.mostrarImagen(binding.ivFoto, mascota.getImagen());
+            }
+        });
 
+        vm.getMEstado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean estado) {
+                binding.etNombreMascota.setEnabled(estado);
+                binding.etEspecie.setEnabled(estado);
+                binding.etRaza.setEnabled(estado);
+                binding.etEdad.setEnabled(estado);
+                binding.etPeso.setEnabled(estado);
+                binding.etSexo.setEnabled(estado);
+                binding.btCambiarFoto.setEnabled(estado);
             }
         });
-        abrirGaleria();
-        binding.btCambiarFoto.setOnClickListener(new View.OnClickListener() {
+
+        vm.getMTexto().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onClick(View v) {
-                arlImagen.launch(intent);
-            }
-        });
-        mv.getUriMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Uri>() {
-            @Override
-            public void onChanged(Uri uri) {
-                binding.ivFoto.setImageURI(uri);
+            public void onChanged(String texto) {
+                binding.btEditar.setText(texto);
             }
         });
 
         binding.btEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mascota.setNombre(binding.etNombreMascota.getText().toString());
-                mascota.setEspecie(binding.etEspecie.getText().toString());
-                mascota.setRaza(binding.etRaza.getText().toString());
-                mascota.setEdad(Integer.parseInt(binding.etEdad.getText().toString()));
-                mascota.setSexo(binding.etSexo.getText().toString());
-                mascota.setPeso(Integer.parseInt(binding.etPeso.getText().toString()));
-                Uri uri = mv.getUriMutableLiveData().getValue();
-                mascota.setImagen(uri.toString());
-                mascota.setEstado(1);
-                mv.actualizarMascota(mascota);
+                vm.cambioBoton(
+                        binding.btEditar.getText().toString(),
+                        binding.etNombreMascota.getText().toString(),
+                        binding.etEspecie.getText().toString(),
+                        binding.etRaza.getText().toString(),
+                        binding.etEdad.getText().toString(),
+                        binding.etPeso.getText().toString(),
+                        binding.etSexo.getText().toString(),
+                        "1"
+                );
             }
         });
 
-        mv.recuperarMascota(getArguments());
-        return view;
+        binding.btCambiarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirGaleria();
+            }
+        });
+
+        Bundle bundle = getArguments();
+        Mascota mascota = (Mascota) bundle.get("mascotaBundle");
+        vm.inicializarMascota(mascota);
+
+        return binding.getRoot();
+    }
+
+    private void abrirGaleria() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_PICK_IMAGE);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mv = new ViewModelProvider(this).get(DetalleMascotaViewModel.class);
-        // TODO: Use the ViewModel
-    }
-    private void abrirGaleria() {
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        arlImagen = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                mv.recibirFoto(result);
-            }
-        });
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri uri = data.getData();
+        vm.setNuevaImagenUri(uri);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

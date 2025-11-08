@@ -2,7 +2,9 @@ package com.tec.sgvmobile.ui.mascotas;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,16 +44,34 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.viewHold
     public void onBindViewHolder(@NonNull viewHolderMascota holder, int position) {
         Mascota mascotaActual = listado.get(position);
         holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
-        Glide.with(context)
-                .load(ApiClient.BASE_URL + mascotaActual.getImagen())
-                .placeholder(R.drawable.inmuebles)
-                .error("null")
-                .into(holder.imagen);
+        String imagenUrl = mascotaActual.getImagen();
+
+        if (imagenUrl == null || imagenUrl.isEmpty()) {
+            holder.imagen.setImageResource(R.drawable.mascotas);
+        } else if (imagenUrl.startsWith("content://")) {
+            Glide.with(context)
+                    .load(Uri.parse(imagenUrl))
+                    .placeholder(R.drawable.mascotas)
+                    .error(R.drawable.mascotas)
+                    .override(800, 800)
+                    .centerCrop()
+                    .into(holder.imagen);
+        } else {
+            // Carga de imagen desde la API (ya incluye la ruta completa)
+            Glide.with(context)
+                    .load(ApiClient.BASE_URL + imagenUrl)
+                    .placeholder(R.drawable.mascotas)
+                    .error(R.drawable.mascotas)
+                    .override(800, 800)
+                    .centerCrop()
+                    .into(holder.imagen);
+        }
         ((viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("mascotaBundle", mascotaActual);
+                Log.d("idMascota", "Se envia con el id: " + mascotaActual.getId());
                 Navigation.findNavController((Activity) context, R.id.nav_host_fragment_content_main).navigate(R.id.detalleMascotaFragment, bundle);
             }
         });

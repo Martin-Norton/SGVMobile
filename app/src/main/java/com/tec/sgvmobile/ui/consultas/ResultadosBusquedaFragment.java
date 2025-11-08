@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentResultadosBusquedaBinding;
 import com.tec.sgvmobile.models.Consulta;
@@ -26,6 +28,7 @@ public class ResultadosBusquedaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(ResultadosBusquedaViewModel.class);
         binding = FragmentResultadosBusquedaBinding.inflate(inflater, container, false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Resultados de búsqueda");
         View root = binding.getRoot();
 
         vm.getListaConsultas().observe(getViewLifecycleOwner(), new Observer<List<Consulta>>() {

@@ -25,6 +25,7 @@ import retrofit2.Response;
 public class CrearTurnoViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<String>> horarios = new MutableLiveData<>();
+    private MutableLiveData<Boolean> creado = new MutableLiveData<>();
 
     public CrearTurnoViewModel(@NonNull Application application) {
         super(application);
@@ -33,6 +34,7 @@ public class CrearTurnoViewModel extends AndroidViewModel {
     public LiveData<List<String>> getHorarios() {
         return horarios;
     }
+    public LiveData<Boolean> getCreado(){return creado;}
 
     public void obtenerHorariosDisponibles(String fechaISO) {
         String token = ApiClient.leerToken(getApplication());
@@ -71,6 +73,7 @@ public class CrearTurnoViewModel extends AndroidViewModel {
                 public void onResponse(Call<Turno> call, Response<Turno> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getApplication(), "Turno creado con éxito", Toast.LENGTH_SHORT).show();
+                        creado.postValue(true);
                     } else {
                         Toast.makeText(getApplication(), "Ya hay un turno para esta mascota en este día! Seleccione otro día." , Toast.LENGTH_SHORT).show();
                     }

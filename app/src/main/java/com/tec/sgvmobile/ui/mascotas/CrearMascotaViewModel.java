@@ -53,7 +53,6 @@ public class CrearMascotaViewModel extends AndroidViewModel {
     public void recibirFoto(ActivityResult result) {
         if (result.getResultCode() == RESULT_OK && result.getData() != null) {
             Uri uri = result.getData().getData();
-            Log.d("MascotaCrear", "Imagen seleccionada: " + uri);
             uriMutableLiveData.setValue(uri);
             nuevaImagenUri = uri;
         }
@@ -83,7 +82,6 @@ public class CrearMascotaViewModel extends AndroidViewModel {
             RequestBody pesoBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mascota.getPeso()));
             RequestBody sexo = RequestBody.create(MediaType.parse("text/plain"), mascota.getSexo());
 
-            // para la Imagen
             MultipartBody.Part imagenPart = null;
             if (nuevaImagenUri != null) {
                 InputStream inputStream = getApplication().getContentResolver().openInputStream(nuevaImagenUri);

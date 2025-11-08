@@ -4,40 +4,41 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class InicioViewModel extends AndroidViewModel {
-    //private MutableLiveData<MapaActual> mapa;
+
+    private final MutableLiveData<LatLng> ubicacion = new MutableLiveData<>();
+    private final MutableLiveData<String> titulo = new MutableLiveData<>();
 
     public InicioViewModel(@NonNull Application application) {
         super(application);
+        ubicacion.setValue(new LatLng(-32.90179071060903, -68.79113147001739));
+        titulo.setValue("Indicador en Veterinaria San Francisco");
     }
-//    public LiveData<MapaActual> getMapa(){
-//        if (mapa == null){
-//            mapa = new MutableLiveData<>();
-//        }
-//        return mapa;
-//    }
-//
-//    public void obtenerMapa(){
-//        MapaActual mapaActual = new MapaActual();
-//        mapa.setValue(mapaActual);
-//    }
-//
-//    public class MapaActual implements OnMapReadyCallback {
-//        LatLng SANLUIS = new LatLng(-33.280576, -66.332482);
-//        LatLng ULP = new LatLng(-33.150720, -66.306864);
-//
-//        @Override
-//        public void onMapReady(@NonNull GoogleMap googleMap) {
-//            googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//            googleMap.addMarker(new MarkerOptions().position(SANLUIS).title("San Luis"));
-//            googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//            googleMap.addMarker(new MarkerOptions().position(ULP).title("Universidad de La Punta"));
-//
-//            CameraPosition cp = new CameraPosition.Builder().target(ULP).zoom(19).bearing(45).tilt(70).build();
-//            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cp);
-//            googleMap.animateCamera(cameraUpdate);
-//        }
-//    }
 
+    public LiveData<LatLng> getUbicacion() {
+        return ubicacion;
+    }
+
+    public LiveData<String> getTitulo() {
+        return titulo;
+    }
+
+    public void mostrarUbicacion(GoogleMap map) {
+        LatLng punto = ubicacion.getValue();
+        String texto = titulo.getValue();
+
+        if (punto != null && map != null) {
+            map.clear();
+            map.addMarker(new MarkerOptions().position(punto).title(texto));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(punto, 16f));
+        }
+    }
 }

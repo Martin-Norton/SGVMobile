@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentCrearMascotaBinding;
 
@@ -35,6 +36,9 @@ public class CrearMascotaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        fab.hide();
+
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Agregar Mascota");
         binding = FragmentCrearMascotaBinding.inflate(inflater, container, false);
         mv = new ViewModelProvider(this).get(CrearMascotaViewModel.class);
@@ -45,7 +49,7 @@ public class CrearMascotaFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         abrirGaleria();
-        binding.btCambiarFoto.setOnClickListener(new View.OnClickListener() {
+        binding.btBuscarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arl.launch(intent);

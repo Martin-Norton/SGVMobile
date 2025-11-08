@@ -9,10 +9,14 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentCrearTurnoBinding;
 import com.tec.sgvmobile.models.Mascota;
 
@@ -31,10 +35,13 @@ public class CrearTurnoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCrearTurnoBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(CrearTurnoViewModel.class);
-
-        if (getArguments() != null) {
-            mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
+        FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
+        if (fab != null) {
+            fab.hide();
         }
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Nuevo turno");
+
+        mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
 
 //Zona Limitar Calendario ///para a partir de hoy 0 o 1 a partir de mañana
         Calendar calendar = Calendar.getInstance();
@@ -81,6 +88,13 @@ public class CrearTurnoFragment extends Fragment {
                 String fechaHoraISO = String.format(Locale.getDefault(),
                         "%04d-%02d-%02dT%s:00", anio, mes + 1, dia, horarioSeleccionado);
                 vm.crearTurno(mascota.getId(), motivo, fechaHoraISO);
+            }
+        });
+        vm.getCreado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                Navigation.findNavController(requireView())
+                        .navigate(R.id.turnosFragment);
             }
         });
 //Fin Zona Crear Turno
