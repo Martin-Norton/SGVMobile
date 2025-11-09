@@ -1,6 +1,7 @@
 package com.tec.sgvmobile.ui.consultas;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,7 @@ public class FiltrosConsultasViewModel extends AndroidViewModel {
         });
     }
     public void buscarEsteMes(int idMascota) {
+        Log.d("motivo", "enviando consulta este mes para mascota con id: " + idMascota);
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmoService api = ApiClient.getInmoService();
         Call<List<Consulta>> call = api.obtenerConsultasEsteMes("Bearer " + token, idMascota);

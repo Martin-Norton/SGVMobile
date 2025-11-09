@@ -94,13 +94,8 @@ public class FiltrosConsultasFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("consultasBundle", (java.io.Serializable) consultas);
                 Navigation.findNavController(binding.getRoot())
-                        .navigate(R.id.resultadosBusquedaFragment, bundle);
-            }
-        });
-        binding.btVolverFiltros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).popBackStack();
+                        .navigate(R.id.action_filtrosConsultasFragment_to_resultadosBusquedaFragment, bundle);
+
             }
         });
         return binding.getRoot();

@@ -90,13 +90,6 @@ public class CrearTurnoFragment extends Fragment {
                 vm.crearTurno(mascota.getId(), motivo, fechaHoraISO);
             }
         });
-        vm.getCreado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                Navigation.findNavController(requireView())
-                        .navigate(R.id.turnosFragment);
-            }
-        });
 //Fin Zona Crear Turno
         return binding.getRoot();
     }

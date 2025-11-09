@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.models.Consulta;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ConsultasAdapter extends RecyclerView.Adapter<ConsultasAdapter.ViewHolderConsulta> {
 

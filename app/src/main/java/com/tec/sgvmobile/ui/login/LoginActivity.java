@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,8 +20,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding =ActivityLoginBinding.inflate(getLayoutInflater());
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(LoginActivityViewModel.class);
-        getSupportActionBar().setTitle("Sistema de Gestión Veterinaria");
         setContentView(binding.getRoot());
+        MaterialToolbar toolbar = findViewById(R.id.toolbarLogin);
+        setSupportActionBar(toolbar);
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

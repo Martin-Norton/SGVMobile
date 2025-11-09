@@ -77,7 +77,7 @@
         android:id="@+id/etDesde"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Desde (aaaa-mm-dd)"
+        android:hint="Desde (dd-mm-aaaa)"
         android:inputType="date"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/btFiltroEntreFechas"
@@ -89,7 +89,7 @@
         android:id="@+id/etHasta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Hasta (aaaa-mm-dd)"
+        android:hint="Hasta (dd-mm-aaaa)"
         android:inputType="date"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/etDesde"
@@ -108,14 +108,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/btVolverFiltros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="Volver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etMotivo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

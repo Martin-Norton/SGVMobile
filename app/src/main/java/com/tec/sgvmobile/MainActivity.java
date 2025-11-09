@@ -1,8 +1,11 @@
 package com.tec.sgvmobile;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.nav_inquilinos, R.id.nav_contratos, R.id.nav_logout)
+                R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.turnosFragment, R.id.consultasFragment,R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -49,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.crearMascotaFragment);
         });        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvNombre = headerView.findViewById(R.id.tvNombre);
+        TextView tvEmail = headerView.findViewById(R.id.tvEmail);
+
+        SharedPreferences sp = getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        tvNombre.setText(sp.getString("nombre", "Usuario"));
+        tvEmail.setText(sp.getString("email", "emailUsuario@dominio.com"));
     }
 
     @Override

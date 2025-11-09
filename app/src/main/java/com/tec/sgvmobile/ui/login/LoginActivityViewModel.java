@@ -1,7 +1,9 @@
 package com.tec.sgvmobile.ui.login;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -57,6 +59,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                     Log.d("loginn","Obtuvimos el token");
                     ApiClient.guardarToken(getApplication(),token);
                     Log.d("token", token);
+                    obtenerDatosUsuario(token);
                     Intent intent = new Intent(getApplication(), MainActivity.class);
                     intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
                     getApplication().startActivity(intent);
@@ -74,4 +77,38 @@ public class LoginActivityViewModel extends AndroidViewModel {
             }
         });
     }
+    private void obtenerDatosUsuario(String token) {
+        ApiClient.InmoService service = ApiClient.getInmoService();
+        Call<Usuario> callUsuario = service.getUsuario("Bearer " + token);
+
+        callUsuario.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Usuario dueno = response.body();
+
+                    SharedPreferences sp = getApplication()
+                            .getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("nombre", dueno.getNombre() + " " + dueno.getApellido());
+                    editor.putString("email", dueno.getEmail());
+                    editor.apply();
+
+                    Log.d("login", "Datos del usuario guardados");
+
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    getApplication().startActivity(intent);
+                } else {
+                    Log.d("login", "Error al obtener datos del usuario: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e("login", "Fallo al obtener usuario", t);
+            }
+        });
+    }
+
 }

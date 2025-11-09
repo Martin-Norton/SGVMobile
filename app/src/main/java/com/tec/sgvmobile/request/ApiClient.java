@@ -31,8 +31,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiClient {
-    //public final static String BASE_URL = "http://192.168.0.104:5000/"; CASA CATA
-    public final static String BASE_URL = "http://192.168.0.4:5000/";
+    public final static String BASE_URL = "http://192.168.0.103:5000/";
+    //public final static String BASE_URL = "http://192.168.0.4:5000/"; MI DEPTO
 
     public static InmoService getInmoService() {
         Gson gson = new GsonBuilder().setLenient()

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cargar Nueva Mascota"
+        android:text="Agrega los datos de la nueva mascota:"
         android:textColor="#9C27B0"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -22,6 +22,7 @@
 
     <TextView
         android:id="@+id/tvNombreMascota"
+        android:textColor="#9C27B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -46,6 +47,7 @@
 
     <TextView
         android:id="@+id/tvEspecie"
+        android:textColor="#9C27B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -70,6 +72,7 @@
 
     <TextView
         android:id="@+id/tvRaza"
+        android:textColor="#9C27B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -94,6 +97,7 @@
 
     <TextView
         android:id="@+id/tvEdad"
+        android:textColor="#9C27B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -118,6 +122,7 @@
 
     <TextView
         android:id="@+id/tvPeso"
+        android:textColor="#9C27B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -171,6 +176,7 @@
 
     <TextView
         android:id="@+id/textView8"
+        android:textColor="#9C27B0"
         android:layout_width="62dp"
         android:layout_height="20dp"
         android:layout_marginTop="12dp"

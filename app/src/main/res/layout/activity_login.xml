@@ -7,14 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarLogin"
+        android:layout_width="411dp"
+        android:layout_height="117dp"
+        android:background="@drawable/nav_header_ng"
+        android:titleTextColor="@color/textColorPrimary"
+        app:title="Bienvenido!"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Bienvenido a Sistema de Gestión Veterinaria"
+        android:layout_marginTop="84dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:text="Ingrese su usuario"
+        android:textColor="#050505"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +47,7 @@
         android:ems="10"
         android:inputType="text"
         android:text="j"
+        android:textColor="#020202"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="Ingrese su clave"
+        android:textColor="#020202"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
@@ -58,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="Ingresar"
+        android:textColor="#090808"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +95,7 @@
         android:ems="10"
         android:inputType="textPassword"
         android:text="j"
+        android:textColor="#050505"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
