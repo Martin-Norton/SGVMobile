@@ -107,7 +107,6 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
         Mascota m = mMascota.getValue();
         if (m != null && uri != null) {
             m.setImagen(uri.toString());
-            Log.d("imagenDetalleGallery", "El url es: " + uri.toString());
             mMascota.setValue(m);
         }
     }

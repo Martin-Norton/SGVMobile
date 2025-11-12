@@ -7,14 +7,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-
     <string name="inicio">inicio</string>
     <string name="perfil">perfil</string>
-    <string name="inmuebles">inmuebles</string>
-    <string name="inquilinos">inquilinos</string>
-    <string name="contratos">contratos</string>
     <string name="logout">logout\n</string>
-    <string name="ubicacion">Ubicacion</string>
     <string name="mascotas">mascotas</string>
     <string name="turnos">Turnos</string>
     <string name="consultas">Consultas</string>

@@ -7,8 +7,8 @@
 
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        <item name="android:windowBackground">@color/backgroundColor</item>
-        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="android:windowBackground">@color/backgroundColorA</item>
+        <item name="android:colorBackground">@color/backgroundColorB</item>
 
         <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>

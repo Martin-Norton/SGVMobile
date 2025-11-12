@@ -5,16 +5,17 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColorB"
     tools:context=".ui.turnos.DetalleTurnosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaTurnos"
         android:layout_width="410dp"
         android:layout_height="660dp"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="77dp"
         android:layout_marginBottom="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

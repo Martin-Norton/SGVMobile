@@ -9,7 +9,8 @@
 
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#424242</color>
-    <color name="backgroundColor">#FAFAFA</color>
+    <color name="backgroundColorA">#FAFAFA</color>
+    <color name="backgroundColorB">#FBD2C0</color>
 
     <color name="purple_200">@color/colorLightPurple</color>
     <color name="purple_700">@color/colorPrimaryDark</color>

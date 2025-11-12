@@ -4,35 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:clipToOutline="true"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="#5E5A78">
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="8dp"
-        android:gravity="center_horizontal">
+        android:background="@drawable/fondo_cards_gradiente">
+
 
         <ImageView
             android:id="@+id/ivImagen"
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
             android:background="@drawable/image_background_rounded"
             android:contentDescription="imagen_mascota"
-            android:layout_marginBottom="8dp" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tvNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
             android:text="Nombre: "
-            android:layout_gravity="center_horizontal"/>
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

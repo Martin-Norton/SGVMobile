@@ -125,6 +125,9 @@ public class ApiClient {
                 @Body CrearTurnoDto body
         );
 
+        @PUT("api/turnos/{id}/cancelar")
+        Call<Void> cancelarTurno(@Header("Authorization") String token, @Path("id") int id);
+
 //Fin Zona Turnos
 //Zona Consultas
         @GET("api/consultas/mascotas-con-consultas")
