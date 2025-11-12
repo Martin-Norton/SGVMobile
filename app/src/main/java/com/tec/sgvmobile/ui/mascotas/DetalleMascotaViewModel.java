@@ -1,11 +1,20 @@
 package com.tec.sgvmobile.ui.mascotas;
 
+import android.Manifest;
 import android.app.Application;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,6 +25,7 @@ import com.tec.sgvmobile.models.Mascota;
 import com.tec.sgvmobile.request.ApiClient;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -30,9 +40,10 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Boolean> mEstado = new MutableLiveData<>(false);
     private final MutableLiveData<String> mTexto = new MutableLiveData<>("EDITAR");
-    private final MutableLiveData<Mascota> mascotaLive = new MutableLiveData<>();
+    private final MutableLiveData<Mascota> mMascota = new MutableLiveData<>();
+    private MutableLiveData<Intent> intentCamara = new MutableLiveData<>(); //aca viaja el intent de abrir la camara
+    private MutableLiveData<Boolean> solicitarPermisoCamara = new MutableLiveData<>(); //aca viaja el estado de la solicitud del permiso
     private Uri nuevaImagenUri;
-
     public DetalleMascotaViewModel(@NonNull Application application) {
         super(application);
     }
@@ -46,19 +57,61 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
     }
 
     public LiveData<Mascota> getMascota() {
-        return mascotaLive;
+        return mMascota;
     }
-    public void setMascota(Mascota m) {
-        mascotaLive.setValue(m);
+
+    public LiveData<Intent> getIntentCamara() {
+        return intentCamara;
     }
-    public void setNuevaImagenUri(Uri uri) {
-        nuevaImagenUri = uri;
-        Mascota m = mascotaLive.getValue();
-        if (m != null && uri != null) {
-            m.setImagen(uri.toString());
-            mascotaLive.setValue(m);
+
+    public LiveData<Boolean> getSolicitarPermisoCamara() {
+        return solicitarPermisoCamara;
+    }
+    public void verificarPermisoCamara(@NonNull Fragment fragment) {
+        if (ContextCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            solicitarPermisoCamara.postValue(true);
+        } else {
+            prepararCamara();
         }
     }
+    public void prepararCamara() {
+        try {
+            File fotoFile = File.createTempFile(
+                    "foto_mascota_", ".jpg",
+                    getApplication().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            );
+
+            nuevaImagenUri = FileProvider.getUriForFile(
+                    getApplication(),
+                    getApplication().getPackageName() + ".provider",
+                    fotoFile
+            );
+
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, nuevaImagenUri);// el extraoutput le dice loco guardalo ACA nuevaImagenUri, no me lo pases en el .data, sirve para mejor resoluion de imagen sino la devuelve en 200x200
+            intentCamara.postValue(cameraIntent);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplication(), "Error al preparar la cámara", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void recibirFoto(ActivityResult result) {
+        setNuevaImagenUri(nuevaImagenUri);
+    }
+
+    public void setNuevaImagenUri(Uri uri) {
+        nuevaImagenUri = uri;
+        Mascota m = mMascota.getValue();
+        if (m != null && uri != null) {
+            m.setImagen(uri.toString());
+            Log.d("imagenDetalleGallery", "El url es: " + uri.toString());
+            mMascota.setValue(m);
+        }
+    }
+
     public void cambioBoton(String textoBoton,
                             String nombre,
                             String especie,
@@ -96,7 +149,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             return;
         }
 
-        Mascota actual = mascotaLive.getValue();
+        Mascota actual = mMascota.getValue();
         if (actual == null) {
             Toast.makeText(getApplication(), "Error: mascota no cargada.", Toast.LENGTH_LONG).show();
             return;
@@ -121,7 +174,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
 
         try {
             RequestBody nombre = RequestBody.create(MediaType.parse("text/plain"), (mascota.getNombre()));
-            RequestBody especie = RequestBody.create(MediaType.parse("text/plain"),(mascota.getEspecie()));
+            RequestBody especie = RequestBody.create(MediaType.parse("text/plain"), (mascota.getEspecie()));
             RequestBody raza = RequestBody.create(MediaType.parse("text/plain"), (mascota.getRaza()));
             RequestBody edad = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mascota.getEdad()));
             RequestBody peso = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mascota.getPeso()));
@@ -147,12 +200,13 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        mascotaLive.postValue(mascota);
+                        mMascota.postValue(mascota);
                         Toast.makeText(getApplication(), "Mascota actualizada correctamente.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplication(), "Error al actualizar: " + response.code(), Toast.LENGTH_LONG).show();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     Toast.makeText(getApplication(), "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
@@ -163,9 +217,10 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
     }
+
     public void inicializarMascota(Mascota m) {
         if (m != null) {
-            mascotaLive.setValue(m);
+            mMascota.setValue(m);
         }
         mEstado.setValue(false);
         mTexto.setValue("EDITAR");
@@ -181,13 +236,14 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
         buffer.flush();
         return buffer.toByteArray();
     }
+
     public void mostrarImagen(ImageView imageView, String imagen) {
         if (imagen == null || imagen.isEmpty()) {
             imageView.setImageResource(R.drawable.mascotas);
             return;
         }
 
-        if (imagen.startsWith("content://")) {
+        if (imagen.startsWith("content://")) {// cuando todavia esta local... por eso carga el uri
             Glide.with(getApplication())
                     .load(Uri.parse(imagen))
                     .override(800, 800)
@@ -195,7 +251,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
                     .into(imageView);
         } else {
             Glide.with(getApplication())
-                    .load(ApiClient.BASE_URL + imagen)
+                    .load(ApiClient.BASE_URL + imagen)//cuando ya existe en el server
                     .override(800, 800)
                     .centerCrop()
                     .into(imageView);

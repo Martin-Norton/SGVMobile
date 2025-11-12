@@ -31,8 +31,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiClient {
-    public final static String BASE_URL = "http://192.168.0.103:5000/";
-    //public final static String BASE_URL = "http://192.168.0.4:5000/"; MI DEPTO
+    //public final static String BASE_URL = "http://192.168.0.103:5000/"; //depto cata
+    public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
+    //public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
 
     public static InmoService getInmoService() {
         Gson gson = new GsonBuilder().setLenient()
@@ -63,7 +64,7 @@ public class ApiClient {
         @POST("api/auth/login")
         Call<String> loginForm(@Field("Usuario") String usuario, @Field("Clave") String clave);
 
-        //Zona Perfil
+//Zona Perfil
         @GET("api/usuarios/me")
         Call<Usuario> getUsuario(@Header("Authorization") String token);
 
@@ -71,9 +72,8 @@ public class ApiClient {
         Call<Usuario> actualizarUsuario(@Header("Authorization") String token, @Body Usuario usuario);
 //Fin Zona Perfil
 
-        //Zona Mascotas
+//Zona Mascotas
         @GET("api/mascotas/mias")
-        //traer las mascotas del dueno loggeado
         Call<List<Mascota>> getMascotas(@Header("Authorization") String token);
 
         @Multipart
@@ -104,7 +104,7 @@ public class ApiClient {
                 @Part MultipartBody.Part imagen
         );
 
-        //Fin Zona Mascotas
+//Fin Zona Mascotas
 //Zona Turnos
         @GET("api/turnos/mascotas-con-turnos")
         Call<List<Mascota>> getConTurnos(@Header("Authorization") String token);
@@ -119,7 +119,6 @@ public class ApiClient {
         );
 
         @POST("api/turnos/crear/{idMascota}")
-            //crear/sacar un nuevo turno
         Call<Turno> crearTurno(
                 @Header("Authorization") String token,
                 @Path("idMascota") int idMascota,
@@ -129,31 +128,20 @@ public class ApiClient {
 //Fin Zona Turnos
 //Zona Consultas
         @GET("api/consultas/mascotas-con-consultas")
-        //Todas las mascotas de usuario loggeado que tienen consultas
         Call<List<Mascota>> obtenerMascotasConConsultas(
                 @Header("Authorization") String token
         );
-
-        @GET("api/consultas/por-mascota/{id}")
-        // Consultas de una mascota en particular
-        Call<List<Consulta>> obtenerConsultasPorMascota(
-                @Header("Authorization") String token,
-                @Path("id") int idMascota
-        );
-
         @GET("api/consultas/por-mascota/{id}/buscar")
         Call<List<Consulta>> obtenerConsultasPorMotivo(
                 @Header("Authorization") String token,
                 @Path("id") int idMascota,
                 @Query("q") String palabra
         );
-
         @GET("api/consultas/por-mascota/{id}/este-mes")
         Call<List<Consulta>> obtenerConsultasEsteMes(
                 @Header("Authorization") String token,
                 @Path("id") int idMascota
         );
-
         @GET("api/consultas/por-mascota/{id}/entre-fechas")
         Call<List<Consulta>> obtenerConsultasEntreFechas(
                 @Header("Authorization") String token,

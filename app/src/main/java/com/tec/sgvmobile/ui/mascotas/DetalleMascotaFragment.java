@@ -1,5 +1,6 @@
 package com.tec.sgvmobile.ui.mascotas;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,11 +9,15 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,7 +29,9 @@ import com.tec.sgvmobile.models.Mascota;
 
 public class DetalleMascotaFragment extends Fragment {
 
-    private static final int REQUEST_PICK_IMAGE = 1001;
+    private ActivityResultLauncher<Intent> arlCamara;
+    private static final int codigoPermisoCamaraDetalle = 101;
+    private static final int codigoPermisoGaleriaDetalle = 1001;
 
     private FragmentDetalleMascotaBinding binding;
     private DetalleMascotaViewModel vm;
@@ -38,6 +45,36 @@ public class DetalleMascotaFragment extends Fragment {
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Detalles de la Mascota");
+
+        arlCamara = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        vm.recibirFoto(result);
+                    }
+                });
+
+        binding.btCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.verificarPermisoCamara(DetalleMascotaFragment.this);
+            }
+        });
+        vm.getSolicitarPermisoCamara().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean solicitar) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.CAMERA}, codigoPermisoCamaraDetalle);
+
+            }
+        });
+        vm.getIntentCamara().observe(getViewLifecycleOwner(), new Observer<Intent>() {
+            @Override
+            public void onChanged(Intent intent) {
+                arlCamara.launch(intent);
+            }
+        });
 
         vm.getMascota().observe(getViewLifecycleOwner(), new Observer<Mascota>() {
             @Override
@@ -62,7 +99,8 @@ public class DetalleMascotaFragment extends Fragment {
                 binding.etEdad.setEnabled(estado);
                 binding.etPeso.setEnabled(estado);
                 binding.etSexo.setEnabled(estado);
-                binding.btCambiarFoto.setEnabled(estado);
+                binding.btBuscarFoto.setEnabled(estado);
+                binding.btCamara.setEnabled(estado);
             }
         });
 
@@ -89,7 +127,7 @@ public class DetalleMascotaFragment extends Fragment {
             }
         });
 
-        binding.btCambiarFoto.setOnClickListener(new View.OnClickListener() {
+        binding.btBuscarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 abrirGaleria();
@@ -105,7 +143,7 @@ public class DetalleMascotaFragment extends Fragment {
 
     private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_PICK_IMAGE);
+        startActivityForResult(intent, codigoPermisoGaleriaDetalle);
     }
 
     @Override
