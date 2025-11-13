@@ -1,7 +1,6 @@
 package com.tec.sgvmobile.ui.mascotas;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -44,7 +44,22 @@ public class DetalleMascotaFragment extends Fragment {
         vm = new ViewModelProvider(this).get(DetalleMascotaViewModel.class);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Detalles de la Mascota");
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Detalles de su mascota");
+
+        ArrayAdapter<String> adapterSexo = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Macho", "Hembra"}
+        );
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spSexo.setAdapter(adapterSexo);
+        ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Canino", "Felino", "Roedor", "Ave", "Conejo", "Reptil"}
+        );
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spEspecie.setAdapter(adapterEspecie);
 
         arlCamara = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -81,11 +96,21 @@ public class DetalleMascotaFragment extends Fragment {
             public void onChanged(Mascota mascota) {
                 if (mascota == null) return;
                 binding.etNombreMascota.setText(mascota.getNombre());
-                binding.etEspecie.setText(mascota.getEspecie());
+                vm.getMEspecie().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer especiePos) {
+                        binding.spEspecie.setSelection(especiePos);
+                    }
+                });
                 binding.etRaza.setText(mascota.getRaza());
                 binding.etEdad.setText(String.valueOf(mascota.getEdad()));
                 binding.etPeso.setText(String.valueOf(mascota.getPeso()));
-                binding.etSexo.setText(mascota.getSexo());
+                vm.getMSexo().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer sexoPos) {
+                        binding.spSexo.setSelection(sexoPos);
+                    }
+                });
                 vm.mostrarImagen(binding.ivFoto, mascota.getImagen());
             }
         });
@@ -94,11 +119,11 @@ public class DetalleMascotaFragment extends Fragment {
             @Override
             public void onChanged(Boolean estado) {
                 binding.etNombreMascota.setEnabled(estado);
-                binding.etEspecie.setEnabled(estado);
+                binding.spEspecie.setEnabled(estado);
                 binding.etRaza.setEnabled(estado);
                 binding.etEdad.setEnabled(estado);
                 binding.etPeso.setEnabled(estado);
-                binding.etSexo.setEnabled(estado);
+                binding.spSexo.setEnabled(estado);
                 binding.btBuscarFoto.setEnabled(estado);
                 binding.btCamara.setEnabled(estado);
             }
@@ -117,11 +142,11 @@ public class DetalleMascotaFragment extends Fragment {
                 vm.cambioBoton(
                         binding.btEditar.getText().toString(),
                         binding.etNombreMascota.getText().toString(),
-                        binding.etEspecie.getText().toString(),
+                        binding.spEspecie.getSelectedItem().toString(),
                         binding.etRaza.getText().toString(),
                         binding.etEdad.getText().toString(),
                         binding.etPeso.getText().toString(),
-                        binding.etSexo.getText().toString(),
+                        binding.spSexo.getSelectedItem().toString(),
                         "1"
                 );
             }

@@ -1,5 +1,7 @@
 package com.tec.sgvmobile.ui.perfil;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +72,11 @@ public class PerfilFragment extends Fragment {
                 binding.etTelefono.setText(usuario.getTelefono());
             }
         });
+
+        Intent intent = new Intent();
+        intent.putExtra("actualizado", true);
+        requireActivity().setResult(Activity.RESULT_OK, intent);
+        requireActivity().finish();
 
         vm.obtenerPerfil();
         return root;

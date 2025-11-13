@@ -1,21 +1,46 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.SGVMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="editTextStyle">@style/SGVEditText</item>
+        <item name="buttonStyle">@style/SGVButton</item>
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        <item name="android:windowBackground">@color/backgroundColorA</item>
-        <item name="android:colorBackground">@color/backgroundColorB</item>
 
-        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/backgroundColorA</item>
+        <item name="android:colorBackground">@color/backgroundColorA</item>
+
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:colorButtonNormal">@color/colorPrimary</item>
+
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents</item>
+
     </style>
 
     <style name="Theme.SGVMobile.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
     <style name="Theme.SGVMobile.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="SGVEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:padding">12dp</item>
+    </style>
+    <style name="SGVButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+
 
 </resources>

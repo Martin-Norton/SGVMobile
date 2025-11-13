@@ -43,7 +43,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.viewHold
     @Override
     public void onBindViewHolder(@NonNull viewHolderMascota holder, int position) {
         Mascota mascotaActual = listado.get(position);
-        holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
+        holder.nombre.setText("'" + mascotaActual.getNombre()+ "'");
         String imagenUrl = mascotaActual.getImagen();
 
         if (imagenUrl == null || imagenUrl.isEmpty()) {
@@ -54,16 +54,15 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.viewHold
                     .placeholder(R.drawable.mascotas)
                     .error(R.drawable.mascotas)
                     .override(800, 800)
-                    .centerCrop()
+                    .circleCrop()
                     .into(holder.imagen);
         } else {
-            // Carga de imagen desde la API (ya incluye la ruta completa)
             Glide.with(context)
                     .load(ApiClient.BASE_URL + imagenUrl)
                     .placeholder(R.drawable.mascotas)
                     .error(R.drawable.mascotas)
                     .override(800, 800)
-                    .centerCrop()
+                    .circleCrop()
                     .into(holder.imagen);
         }
         ((viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +88,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.viewHold
 
         public viewHolderMascota(@NonNull View itemView) {
             super(itemView);
-            nombre = itemView.findViewById(R.id.tvNombre);
+            nombre = itemView.findViewById(R.id.tvNombreMascota);
             imagen = itemView.findViewById(R.id.ivImagen);
         }
     }

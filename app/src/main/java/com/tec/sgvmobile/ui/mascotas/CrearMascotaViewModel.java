@@ -105,11 +105,9 @@ public class CrearMascotaViewModel extends AndroidViewModel {
     }
     public void guardarMascota(String nombreStr, String especieStr, String razaStr, String edadStr, String pesoStr, String sexoStr) {
         if (nombreStr == null || nombreStr.trim().isEmpty() ||
-                especieStr == null || especieStr.trim().isEmpty() ||
                 razaStr == null || razaStr.trim().isEmpty() ||
                 edadStr == null || edadStr.trim().isEmpty() ||
-                pesoStr == null || pesoStr.trim().isEmpty() ||
-                sexoStr == null || sexoStr.trim().isEmpty()) {
+                pesoStr == null || pesoStr.trim().isEmpty()) {
             Toast.makeText(getApplication(), "Todos los campos son obligatorios.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -127,11 +125,6 @@ public class CrearMascotaViewModel extends AndroidViewModel {
             return;
         }
 
-        if (!(sexoStr.equalsIgnoreCase("M") || sexoStr.equalsIgnoreCase("H"))) {
-            Toast.makeText(getApplication(), "El sexo debe ser 'M' o 'H'.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         try {
             Mascota mascota = new Mascota();
             mascota.setNombre(nombreStr.trim());
@@ -139,7 +132,7 @@ public class CrearMascotaViewModel extends AndroidViewModel {
             mascota.setRaza(razaStr.trim());
             mascota.setEdad(edad);
             mascota.setPeso(peso);
-            mascota.setSexo(sexoStr.trim().toUpperCase());
+            mascota.setSexo(sexoStr);
             mascota.setEstado(1);
 
             ApiClient.InmoService api = ApiClient.getInmoService();

@@ -12,23 +12,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvCambiarImagen2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Decidí como subir la foto:"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivFoto" />
+
         <TextView
             android:id="@+id/tvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agregar Nueva Mascota"
+            android:text="Nueva mascota"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivFoto"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="Foto de la mascota"
+            android:background="@drawable/imagen_circular"
             android:scaleType="centerCrop"
             android:src="@drawable/mascotas"
             app:layout_constraintTop_toBottomOf="@id/tvTitulo"
@@ -39,22 +54,22 @@
             android:id="@+id/layoutSeleccionImagen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/ivFoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tvCambiarImagen2">
 
             <Button
                 android:id="@+id/btBuscarFoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Galería"
-                android:drawablePadding="8dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:paddingHorizontal="16dp" />
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="16dp"
+                android:text="Galería"
+                android:textColor="@android:color/white" />
 
             <Space
                 android:layout_width="16dp"
@@ -64,13 +79,22 @@
                 android:id="@+id/btCamara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cámara"
-                android:drawablePadding="8dp"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:textColor="@android:color/white"
-                android:paddingHorizontal="16dp" />
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="16dp"
+                android:text="Cámara"
+                android:textColor="@android:color/white" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre: "
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutSeleccionImagen"
+            app:layout_constraintStart_toStartOf="parent" />
         <EditText
             android:id="@+id/etNombreMascota"
             android:layout_width="0dp"
@@ -80,18 +104,38 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSeleccionImagen" />
+            app:layout_constraintTop_toBottomOf="@id/tvNombre" />
 
-        <EditText
-            android:id="@+id/etEspecie"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:hint="Especie"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
+        <TextView
+            android:id="@+id/tvEspecie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Especie"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etNombreMascota" />
 
+        <Spinner
+            android:id="@+id/spEspecie"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintTop_toBottomOf="@id/tvEspecie"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/tvRaza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Raza: "
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/spEspecie"
+            app:layout_constraintStart_toStartOf="parent" />
         <EditText
             android:id="@+id/etRaza"
             android:layout_width="0dp"
@@ -100,8 +144,17 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etEspecie" />
-
+            app:layout_constraintTop_toBottomOf="@id/tvRaza" />
+        <TextView
+            android:id="@+id/tvEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad: "
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/etRaza"
+            app:layout_constraintStart_toStartOf="parent" />
         <EditText
             android:id="@+id/etEdad"
             android:layout_width="0dp"
@@ -110,7 +163,17 @@
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etRaza" />
+            app:layout_constraintTop_toBottomOf="@id/tvEdad" />
+        <TextView
+            android:id="@+id/tvPeso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peso (Grs): "
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/etEdad"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etPeso"
@@ -120,17 +183,29 @@
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etEdad" />
+            app:layout_constraintTop_toBottomOf="@id/tvPeso" />
 
-        <EditText
-            android:id="@+id/etSexo"
+        <TextView
+            android:id="@+id/tvSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/etPeso"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spSexo"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:hint="Sexo (M/H)"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintTop_toBottomOf="@id/tvSexo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etPeso" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
         <Button
             android:id="@+id/btGuardar"
@@ -140,7 +215,7 @@
             android:backgroundTint="@color/colorAccent"
             android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/etSexo"
+            app:layout_constraintTop_toBottomOf="@id/spSexo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

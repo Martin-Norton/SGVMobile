@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp"
-            android:background="@drawable/image_background_rounded"
+            android:background="@color/backgroundColorA"
             android:elevation="2dp">
 
             <TextView

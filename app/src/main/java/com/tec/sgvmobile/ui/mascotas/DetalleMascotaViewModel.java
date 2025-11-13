@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,6 +27,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -38,14 +39,24 @@ import retrofit2.Response;
 
 public class DetalleMascotaViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<Boolean> mEstado = new MutableLiveData<>(false);
-    private final MutableLiveData<String> mTexto = new MutableLiveData<>("EDITAR");
-    private final MutableLiveData<Mascota> mMascota = new MutableLiveData<>();
+    private MutableLiveData<Integer> mEspecie = new MutableLiveData<>();
+    private MutableLiveData<Integer> mSexo = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mEstado = new MutableLiveData<>();
+    private MutableLiveData<String> mTexto = new MutableLiveData<>();
+    private MutableLiveData<Mascota> mMascota = new MutableLiveData<>();
     private MutableLiveData<Intent> intentCamara = new MutableLiveData<>(); //aca viaja el intent de abrir la camara
     private MutableLiveData<Boolean> solicitarPermisoCamara = new MutableLiveData<>(); //aca viaja el estado de la solicitud del permiso
     private Uri nuevaImagenUri;
+
     public DetalleMascotaViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public LiveData<Integer> getMEspecie() {
+        return mEspecie;
+    }
+    public LiveData<Integer> getMSexo() {
+        return mSexo;
     }
 
     public LiveData<Boolean> getMEstado() {
@@ -67,6 +78,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
     public LiveData<Boolean> getSolicitarPermisoCamara() {
         return solicitarPermisoCamara;
     }
+
     public void verificarPermisoCamara(@NonNull Fragment fragment) {
         if (ContextCompat.checkSelfPermission(fragment.requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -75,6 +87,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             prepararCamara();
         }
     }
+
     public void prepararCamara() {
         try {
             File fotoFile = File.createTempFile(
@@ -110,7 +123,6 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             mMascota.setValue(m);
         }
     }
-
     public void cambioBoton(String textoBoton,
                             String nombre,
                             String especie,
@@ -126,11 +138,9 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             return;
         }
         if (nombre == null || nombre.isEmpty() ||
-                especie == null || especie.isEmpty() ||
                 raza == null || raza.isEmpty() ||
                 edad == null || edad.isEmpty() ||
-                peso == null || peso.isEmpty() ||
-                sexo == null || sexo.isEmpty()) {
+                peso == null || peso.isEmpty()) {
 
             Toast.makeText(getApplication(), "Todos los campos son obligatorios.", Toast.LENGTH_LONG).show();
             return;
@@ -220,10 +230,27 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
     public void inicializarMascota(Mascota m) {
         if (m != null) {
             mMascota.setValue(m);
+            List<String> especies = new ArrayList<>();
+            especies.add("Canino");
+            especies.add("Felino");
+            especies.add("Roedor");
+            especies.add("Ave");
+            especies.add("Conejo");
+            especies.add("Reptil");
+            int posEspecie = especies.indexOf(m.getEspecie());
+            mEspecie.postValue(posEspecie);
+
+            List<String> sexos = new ArrayList<>();
+            sexos.add("Macho");
+            sexos.add("Hembra");
+            int posSexos = sexos.indexOf(m.getSexo());
+            mSexo.postValue(posSexos);
+
         }
         mEstado.setValue(false);
         mTexto.setValue("EDITAR");
     }
+
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -246,13 +273,13 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             Glide.with(getApplication())
                     .load(Uri.parse(imagen))
                     .override(800, 800)
-                    .centerCrop()
+                    .circleCrop()
                     .into(imageView);
         } else {
             Glide.with(getApplication())
                     .load(ApiClient.BASE_URL + imagen)//cuando ya existe en el server
                     .override(800, 800)
-                    .centerCrop()
+                    .circleCrop()
                     .into(imageView);
         }
     }

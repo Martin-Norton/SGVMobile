@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,12 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private MainActivityViewModel vm;
+
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(MainActivityViewModel.class);
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -41,7 +47,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
+        navigationView = binding.navView;
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvNombre = headerView.findViewById(R.id.tvNombre);
+        TextView tvEmail = headerView.findViewById(R.id.tvEmail);
+
+        vm.getNombre().observe(this, tvNombre::setText);
+        vm.getEmail().observe(this, tvEmail::setText);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.turnosFragment, R.id.consultasFragment,R.id.nav_logout)
@@ -52,19 +64,16 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.crearMascotaFragment);
         });        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
-        View headerView = navigationView.getHeaderView(0);
-        TextView tvNombre = headerView.findViewById(R.id.tvNombre);
-        TextView tvEmail = headerView.findViewById(R.id.tvEmail);
-
-        SharedPreferences sp = getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
-        tvNombre.setText(sp.getString("nombre", "Usuario"));
-        tvEmail.setText(sp.getString("email", "emailUsuario@dominio.com"));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vm.cargarDatosUsuario();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

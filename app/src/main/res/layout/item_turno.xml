@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/image_background_rounded"
+            android:background="@color/backgroundColorA"
             android:padding="12dp"
             android:elevation="2dp">
 
@@ -40,8 +40,8 @@
                 android:id="@+id/tvNombreMascota"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Mascota"
+                android:layout_marginBottom="0dp"
+                android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
@@ -89,7 +89,7 @@
                 android:textSize="16sp"
                 android:padding="8dp"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="@color/colorLightOrange"
+                android:backgroundTint="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"/>
 

@@ -21,13 +21,10 @@ public class LoginActivity extends AppCompatActivity {
         binding =ActivityLoginBinding.inflate(getLayoutInflater());
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(LoginActivityViewModel.class);
         setContentView(binding.getRoot());
-        MaterialToolbar toolbar = findViewById(R.id.toolbarLogin);
-        setSupportActionBar(toolbar);
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String user = binding.etUsuario.getText().toString();
-                Log.d("loginn","se presiono el boton de login");
                 String clave = binding.etClave.getText().toString();
                 viewModel.validarUsuario(user, clave);
             }

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     tools:context=".ui.turnos.CrearTurnoFragment">
-
-    <!-- Scroll interno por si el teclado sube -->
     <ScrollView
         android:id="@+id/scrollViewTurno"
         android:layout_width="0dp"

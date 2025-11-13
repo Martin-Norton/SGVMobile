@@ -56,10 +56,9 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
         Turno turno = listaTurnos.get(position);
         Log.d("TurnoAdapter", "llenando con turno" + turno.getMotivo() );
 
-        holder.tvNombreMascota.setText(mascota.getNombre());
-        holder.tvMotivo.setText(turno.getMotivo());
-        holder.tvFecha.setText((turno.getFecha() != null ? dateFormat.format(turno.getFecha()) : "-"));
-        holder.tvHora.setText(turno.getHora() != null ? turno.getHora().substring(0,5) : "-");
+        holder.tvMotivo.setText("Motivo: " + turno.getMotivo());
+        holder.tvFecha.setText("El dia: " + (turno.getFecha() != null ? dateFormat.format(turno.getFecha()) : "-"));
+        holder.tvHora.setText("A las: " + turno.getHora() + " hs" != null ? "A las: " + turno.getHora().substring(0,5) + " hs" : "A las: -");
         holder.tvEstado.setText((turno.getEstado() == 1 ? "Activo" : "Cancelado"));
 
         holder.btCancelarTurno.setOnClickListener(v -> {
@@ -103,12 +102,11 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
 
     public static class ViewHolderTurno extends RecyclerView.ViewHolder {
 
-        TextView tvNombreMascota, tvMotivo, tvFecha, tvHora, tvEstado;
+        TextView tvMotivo, tvFecha, tvHora, tvEstado;
         Button btCancelarTurno;
 
         public ViewHolderTurno(@NonNull View itemView) {
             super(itemView);
-            tvNombreMascota = itemView.findViewById(R.id.tvNombreMascota);
             tvMotivo = itemView.findViewById(R.id.tvMotivo);
             tvFecha = itemView.findViewById(R.id.tvFecha);
             tvHora = itemView.findViewById(R.id.tvHora);

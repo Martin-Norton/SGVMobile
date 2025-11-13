@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -42,7 +43,7 @@ public class CrearMascotaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Agregar Mascota");
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Agregar mascota");
         binding = FragmentCrearMascotaBinding.inflate(inflater, container, false);
         mv = new ViewModelProvider(this).get(CrearMascotaViewModel.class);
         return binding.getRoot();
@@ -51,6 +52,20 @@ public class CrearMascotaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ArrayAdapter<String> adapterSexo = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Macho", "Hembra"}
+        );
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spSexo.setAdapter(adapterSexo);
+        ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Canino", "Felino", "Roedor", "Ave", "Conejo", "Reptil"}
+        );
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spEspecie.setAdapter(adapterEspecie);
 
         arlCamara = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -81,7 +96,7 @@ public class CrearMascotaFragment extends Fragment {
             public void onChanged(Uri uri) {
                 Glide.with(requireContext())
                         .load(uri)
-                        .centerCrop()
+                        .circleCrop()
                         .into(binding.ivFoto);
             }
         });
@@ -106,11 +121,11 @@ public class CrearMascotaFragment extends Fragment {
             public void onClick(View v) {
                 mv.guardarMascota(
                         binding.etNombreMascota.getText().toString(),
-                        binding.etEspecie.getText().toString(),
+                        binding.spEspecie.getSelectedItem().toString(),
                         binding.etRaza.getText().toString(),
                         binding.etEdad.getText().toString(),
                         binding.etPeso.getText().toString(),
-                        binding.etSexo.getText().toString()
+                        binding.spSexo.getSelectedItem().toString()
                 );
             }
         });

@@ -1,20 +1,23 @@
 <resources>
-    <color name="colorPrimary">#6A1B9A</color>
-    <color name="colorPrimaryDark">#4A0072</color>
-    <color name="colorAccent">#FF6F00</color>
-    <color name="colorSecondary">#F57C00</color>
+    <color name="colorPrimary">#1E4D8B</color>
+    <color name="colorPrimaryDark">#153A67</color>
+    <color name="colorAccent">#1E4D8B</color>
+    <color name="colorSecondary">#0D3A6A</color>
 
-    <color name="colorLightPurple">#BA68C8</color>
-    <color name="colorLightOrange">#FFB74D</color>
+    <color name="colorLightPurple">#D6E2F5</color>
+    <color name="colorLightOrange">#F5D8B0</color>
 
-    <color name="textColorPrimary">#212121</color>
+    <color name="textColorPrimary">#1E4D8B</color>
     <color name="textColorSecondary">#424242</color>
-    <color name="backgroundColorA">#FAFAFA</color>
-    <color name="backgroundColorB">#FBD2C0</color>
+
+    <color name="backgroundColorA">#FFFFFF</color>
+    <color name="backgroundColorB">#FAFAFA</color>
 
     <color name="purple_200">@color/colorLightPurple</color>
     <color name="purple_700">@color/colorPrimaryDark</color>
     <color name="teal_200">@color/colorAccent</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
 </resources>

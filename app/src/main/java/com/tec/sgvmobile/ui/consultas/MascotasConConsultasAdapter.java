@@ -48,6 +48,7 @@ public class MascotasConConsultasAdapter extends RecyclerView.Adapter<MascotasCo
                 .load(ApiClient.BASE_URL + mascotaActual.getImagen())
                 .placeholder(R.drawable.mascotas)
                 .error("null")
+                .circleCrop()
                 .into(holder.imagen);
         ((MascotasConConsultasAdapter.viewHolderMascota) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +72,7 @@ public class MascotasConConsultasAdapter extends RecyclerView.Adapter<MascotasCo
 
         public viewHolderMascota(@NonNull View itemView) {
             super(itemView);
-            nombre = itemView.findViewById(R.id.tvNombre);
+            nombre = itemView.findViewById(R.id.tvNombreMascota);
             imagen = itemView.findViewById(R.id.ivImagen);
         }
     }
