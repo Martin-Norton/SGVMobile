@@ -9,7 +9,7 @@
     tools:context=".ui.consultas.ConsultasFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reciclerMascotasConConsultas"
+        android:id="@+id/listaMascotasConConsultas"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"

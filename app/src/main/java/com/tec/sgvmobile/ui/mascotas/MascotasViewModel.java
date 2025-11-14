@@ -1,4 +1,4 @@
-package com.tec.sgvmobile.ui.inmuebles;
+package com.tec.sgvmobile.ui.mascotas;
 
 import android.app.Application;
 import android.widget.Toast;
@@ -29,7 +29,7 @@ public class MascotasViewModel extends AndroidViewModel {
 
     public void obtenerListaMascotas(){
         String token= ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Mascota>> call = api.getMascotas("Bearer " + token);
         call.enqueue(new Callback<List<Mascota>>() {
             @Override

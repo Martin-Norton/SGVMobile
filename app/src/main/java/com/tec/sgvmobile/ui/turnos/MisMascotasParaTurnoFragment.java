@@ -32,17 +32,15 @@ public class MisMascotasParaTurnoFragment extends Fragment {
         if (fab != null) {
             fab.hide();
         }
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Seleccionar Mascota para crear un turno");
-
         View root = binding.getRoot();
 
         vm.getMascotas().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {
             @Override
             public void onChanged(List<Mascota> mascotas) {
-                TodasLasMascotasAdapter adapter = new TodasLasMascotasAdapter(getContext(), mascotas, getLayoutInflater());
+                TodasLasMascotasAdapter tlma = new TodasLasMascotasAdapter(getContext(), mascotas, getLayoutInflater());
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                 binding.listaMascotast.setLayoutManager(glm);
-                binding.listaMascotast.setAdapter(adapter);
+                binding.listaMascotast.setAdapter(tlma);
             }
         });
 

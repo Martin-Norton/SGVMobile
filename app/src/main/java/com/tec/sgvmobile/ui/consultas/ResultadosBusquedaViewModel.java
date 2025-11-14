@@ -24,7 +24,7 @@ public class ResultadosBusquedaViewModel extends AndroidViewModel {
         return listaConsultas;
     }
 
-    public void setConsultas(List<Consulta> consultas) {
+    public void llenarMlistaConsultas(List<Consulta> consultas) {
         if (consultas == null) {
             consultas = new ArrayList<>();
         }

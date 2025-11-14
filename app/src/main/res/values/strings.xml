@@ -16,4 +16,9 @@
     <string name="mi_perfil">Mi Perfil</string>
     <string name="mis_mascotas">Mis Mascotas</string>
     <string name="ubicaci_n_de_la_veterinaria">Ubicación de la Veterinaria</string>
+    <string name="pantallaInicio">Donde nos encontramos</string>
+    <string name="pantallaPerfil">Mis datos</string>
+    <string name="pantallaMascotas">Mis mascotas</string>
+    <string name="pantallaLogout">Salir</string>
+    <string name="pantallaDetalleMascota">Detalles de la mascota</string>
 </resources>

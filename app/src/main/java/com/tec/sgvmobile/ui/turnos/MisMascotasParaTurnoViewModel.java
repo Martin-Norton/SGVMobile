@@ -31,7 +31,7 @@ public class MisMascotasParaTurnoViewModel extends AndroidViewModel {
 
     public void cargarMascotas() {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
         Call<List<Mascota>> call = api.getMascotas("Bearer " + token);
         call.enqueue(new Callback<List<Mascota>>() {

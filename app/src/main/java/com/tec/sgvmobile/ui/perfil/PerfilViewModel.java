@@ -1,6 +1,8 @@
 package com.tec.sgvmobile.ui.perfil;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,7 +58,7 @@ public class PerfilViewModel extends AndroidViewModel {
             mTexto.setValue("EDITAR");
 
             String token = ApiClient.leerToken(getApplication());
-            ApiClient.InmoService api = ApiClient.getInmoService();
+            ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
             Usuario usuarioActual = usuario.getValue();
             if (usuarioActual == null) {
@@ -72,7 +74,6 @@ public class PerfilViewModel extends AndroidViewModel {
             usuarioNuevo.setEmail(usuarioActual.getEmail());
             usuarioNuevo.setRol(usuarioActual.getRol());
             usuarioNuevo.setEstado(usuarioActual.getEstado());
-            Log.d("telefono", "telefono del user nuevo: " + usuarioNuevo.getTelefono());
             Call<Usuario> call = api.actualizarUsuario("Bearer " + token, usuarioNuevo);
             call.enqueue(new Callback<Usuario>() {
                 @Override
@@ -81,6 +82,12 @@ public class PerfilViewModel extends AndroidViewModel {
                         usuario.setValue(usuarioNuevo);
                         Toast.makeText(getApplication(), "Perfil actualizado correctamente.", Toast.LENGTH_LONG).show();
                         Log.d("PerfilVM", "Perfil actualizado con éxito.");
+
+                        SharedPreferences sp = getApplication().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("nombre", usuarioNuevo.getNombre() + " " + usuarioNuevo.getApellido());
+                        editor.apply();
+
                     } else {
                         Toast.makeText(getApplication(), "Error al actualizar: " + response.code(), Toast.LENGTH_LONG).show();
                         Log.e("PerfilVM", "Error al actualizar: " + response.message());
@@ -97,7 +104,7 @@ public class PerfilViewModel extends AndroidViewModel {
     }
     public void obtenerPerfil() {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
         Call<Usuario> call = api.getUsuario("Bearer " + token);
         call.enqueue(new Callback<Usuario>() {

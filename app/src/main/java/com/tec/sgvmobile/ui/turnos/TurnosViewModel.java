@@ -34,8 +34,8 @@ public class TurnosViewModel extends AndroidViewModel {
 
     public void obtenerListaMascotasConTurnos() {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
-        Call<List<Mascota>> call = api.getConTurnos("Bearer " + token);
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
+        Call<List<Mascota>> call = api.getMascotasConTurnos("Bearer " + token);
         call.enqueue(new Callback<List<Mascota>>() {
             @Override
             public void onResponse(Call<List<Mascota>> call, Response<List<Mascota>> response) {
@@ -43,17 +43,15 @@ public class TurnosViewModel extends AndroidViewModel {
                     mascotasConTurno.clear();
                     mascotasConTurno.addAll(response.body());
                     listaMascotasConTurnos.postValue(mascotasConTurno);
-
-                    Toast.makeText(getApplication(), "Cantidad de Mascotas con turnos: " +  mascotasConTurno.size(), Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(getApplication(), "Sus mascotas con turnos: ", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplication(), "Error al obtener Mascotas en onResponse", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "Error al obtener mascotas con turnos", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Mascota>> call, Throwable t) {
-                Toast.makeText(getApplication(), "Error en la respuesta en onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

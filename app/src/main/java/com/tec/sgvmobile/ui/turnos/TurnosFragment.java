@@ -25,22 +25,24 @@ public class TurnosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(TurnosViewModel.class);
         binding = FragmentTurnosBinding.inflate(inflater, container, false);
+
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         if (fab != null) {
             fab.hide();
         }
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mascotas con turnos");
+
         View root = binding.getRoot();
+
         vm.getListaMascotasConTurnos().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {
             @Override
             public void onChanged(List<Mascota> mascotasTurnos) {
-                MascotasConTurnosAdapter ta = new MascotasConTurnosAdapter(getContext(), mascotasTurnos, getLayoutInflater());
+                MascotasConTurnosAdapter mcta = new MascotasConTurnosAdapter(getContext(), mascotasTurnos, getLayoutInflater());
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                 binding.listaMascotasTurnos.setLayoutManager(glm);
-                binding.listaMascotasTurnos.setAdapter(ta);
+                binding.listaMascotasTurnos.setAdapter(mcta);
             }
         });
-        binding.btNuevoTurno2.setVisibility(View.VISIBLE);
+
         binding.btNuevoTurno2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +50,7 @@ public class TurnosFragment extends Fragment {
                         .navigate(R.id.misMascotasParaTurnoFragment);
             }
         });
+
         vm.obtenerListaMascotasConTurnos();
         return root;
     }

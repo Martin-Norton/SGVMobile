@@ -40,8 +40,6 @@ public class CrearMascotaViewModel extends AndroidViewModel {
     private MutableLiveData<Intent> intentCamara = new MutableLiveData<>();
     private MutableLiveData<Boolean> solicitarPermisoCamara = new MutableLiveData<>();
     private Uri nuevaImagenUri;
-    private static final int REQUEST_CAMERA_PERMISSION = 101;//codigo con el que identifico ESTE pedido request de camara
-
     public CrearMascotaViewModel(@NonNull Application application) {
         super(application);
     }
@@ -135,7 +133,7 @@ public class CrearMascotaViewModel extends AndroidViewModel {
             mascota.setSexo(sexoStr);
             mascota.setEstado(1);
 
-            ApiClient.InmoService api = ApiClient.getInmoService();
+            ApiClient.VeterinariaService api = ApiClient.getVeteService();
             String token = ApiClient.leerToken(getApplication());
 
             RequestBody nombre = RequestBody.create(MediaType.parse("text/plain"), mascota.getNombre());

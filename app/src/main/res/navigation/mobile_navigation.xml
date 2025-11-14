@@ -8,23 +8,20 @@
     <fragment
         android:id="@+id/nav_inicio"
         android:name="com.tec.sgvmobile.ui.inicio.InicioFragment"
-        android:label="@string/inicio"
+        android:label="@string/pantallaInicio"
         tools:layout="@layout/fragment_inicio2" />
 
     <fragment
         android:id="@+id/nav_perfil"
         android:name="com.tec.sgvmobile.ui.perfil.PerfilFragment"
-        android:label="@string/perfil"
+        android:label="@string/pantallaPerfil"
         tools:layout="@layout/fragment_perfil" >
-        <action
-            android:id="@+id/action_nav_perfil_to_cambiarClaveFragment"
-            app:destination="@id/cambiarClaveFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_mascotas"
         android:name="com.tec.sgvmobile.ui.mascotas.MascotasFragment"
-        android:label="@string/mascotas"
+        android:label="@string/pantallaMascotas"
         tools:layout="@layout/fragment_mascotas" >
         <action
             android:id="@+id/action_nav_mascotas_to_detalleMascotaFragment"
@@ -34,7 +31,7 @@
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.tec.sgvmobile.ui.logout.LogoutFragment"
-        android:label="@string/logout"
+        android:label="@string/pantallaLogout"
         tools:layout="@layout/activity_logout" />
     <activity
         android:id="@+id/loginActivity"
@@ -44,7 +41,7 @@
     <fragment
         android:id="@+id/detalleMascotaFragment"
         android:name="com.tec.sgvmobile.ui.mascotas.DetalleMascotaFragment"
-        android:label="DetalleMascotaFragment" >
+        android:label="@string/pantallaDetalleMascota" >
         <action
             android:id="@+id/action_detalleMascotaFragment_to_nav_mascotas"
             app:destination="@id/nav_mascotas" />
@@ -52,7 +49,7 @@
     <fragment
         android:id="@+id/crearMascotaFragment"
         android:name="com.tec.sgvmobile.ui.mascotas.CrearMascotaFragment"
-        android:label="CrearMascotaFragment" >
+        android:label="Nueva mascota" >
         <action
             android:id="@+id/action_crearMascotaFragment_to_nav_mascotas"
             app:destination="@id/nav_mascotas" />
@@ -63,7 +60,7 @@
     <fragment
         android:id="@+id/turnosFragment"
         android:name="com.tec.sgvmobile.ui.turnos.TurnosFragment"
-        android:label="fragment_turnos"
+        android:label="Mascotas con turnos"
         tools:layout="@layout/fragment_turnos" >
         <action
             android:id="@+id/action_turnosFragment_to_detalleTurnosFragment"
@@ -72,7 +69,7 @@
     <fragment
         android:id="@+id/detalleTurnosFragment"
         android:name="com.tec.sgvmobile.ui.turnos.DetalleTurnosFragment"
-        android:label="fragment_detalle_turnos"
+        android:label="Próximos turnos"
         tools:layout="@layout/fragment_detalle_turnos" >
         <action
             android:id="@+id/action_detalleTurnosFragment_to_turnosFragment"
@@ -84,21 +81,19 @@
     <fragment
         android:id="@+id/crearTurnoFragment"
         android:name="com.tec.sgvmobile.ui.turnos.CrearTurnoFragment"
-        android:label="fragment_crear_turno"
+        android:label="Nuevo turno"
         tools:layout="@layout/fragment_crear_turno" >
-        <action
-            android:id="@+id/action_crearTurnoFragment_to_detalleTurnosFragment"
-            app:destination="@id/detalleTurnosFragment" />
         <action
             android:id="@+id/action_crearTurnoFragment_to_turnosFragment"
             app:destination="@id/turnosFragment"
             app:popUpTo="@id/turnosFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
     <fragment
         android:id="@+id/consultasFragment"
         android:name="com.tec.sgvmobile.ui.consultas.ConsultasFragment"
-        android:label="fragment_consultas"
+        android:label="Mis mascotas con consultas"
         tools:layout="@layout/fragment_consultas">
         <action
             android:id="@+id/action_consultasFragment_to_filtrosConsultasFragment"
@@ -108,7 +103,7 @@
     <fragment
         android:id="@+id/filtrosConsultasFragment"
         android:name="com.tec.sgvmobile.ui.consultas.FiltrosConsultasFragment"
-        android:label="fragment_filtros_consultas"
+        android:label="Filtrar consultas"
         tools:layout="@layout/fragment_filtros_consultas">
 
         <action
@@ -125,20 +120,15 @@
     <fragment
         android:id="@+id/resultadosBusquedaFragment"
         android:name="com.tec.sgvmobile.ui.consultas.ResultadosBusquedaFragment"
-        android:label="fragment_resultados_busqueda"
+        android:label="Resultados de búsqueda"
         tools:layout="@layout/fragment_resultados_busqueda" />
     <fragment
         android:id="@+id/misMascotasParaTurnoFragment"
         android:name="com.tec.sgvmobile.ui.turnos.MisMascotasParaTurnoFragment"
-        android:label="fragment_mis_mascotas_para_turno"
+        android:label="Seleccione una mascota"
         tools:layout="@layout/fragment_mis_mascotas_para_turno" />
     <fragment
-        android:id="@+id/cambiarClaveFragment"
-        android:name="com.tec.sgvmobile.ui.perfil.CambiarClaveFragment"
-        android:label="fragment_cambiar_clave"
-        tools:layout="@layout/fragment_cambiar_clave" >
-        <action
-            android:id="@+id/action_cambiarClaveFragment_to_nav_perfil"
-            app:destination="@id/nav_perfil" />
-    </fragment>
+        android:id="@+id/contactoFragment"
+        android:name="com.tec.sgvmobile.ui.contacto.ContactoFragment"
+        android:label="Contactanos" />
 </navigation>

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,17 +40,13 @@ public class CrearTurnoFragment extends Fragment {
         if (fab != null) {
             fab.hide();
         }
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Nuevo turno");
 
         mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
 
-//Zona Limitar Calendario ///para a partir de hoy 0 o 1 a partir de mañana
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
         binding.datePicker.setMinDate(calendar.getTimeInMillis());
-//Fin Zona Limitar calendario
 
-//Zona Traer Horarios Disponibles ///es segun el dia
         binding.btElegirDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,12 +55,12 @@ public class CrearTurnoFragment extends Fragment {
                 int anio = binding.datePicker.getYear();
                 Calendar fechaSeleccionada = Calendar.getInstance();
                 fechaSeleccionada.set(anio, mes, dia);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String fechaISO = format.format(fechaSeleccionada.getTime());
-                vm.obtenerHorariosDisponibles(fechaISO);
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String fechaVista = formato.format(fechaSeleccionada.getTime());
+                vm.obtenerHorariosDisponibles(fechaVista);
             }
         });
-        //LLenado del dropdown de los horarios que estan disponibles
+
         vm.getHorarios().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> horarios) {
@@ -73,8 +70,7 @@ public class CrearTurnoFragment extends Fragment {
                 binding.spHorarios.setAdapter(adapter);
             }
         });
-//Fin Zona Traer Horarios Disponibles
-//Zona Crear Turno
+
         binding.btCrearTurno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,12 +81,18 @@ public class CrearTurnoFragment extends Fragment {
                 int anio = binding.datePicker.getYear();
                 Calendar fechaTurno = Calendar.getInstance();
                 fechaTurno.set(anio, mes, dia);
-                String fechaHoraISO = String.format(Locale.getDefault(),
+                String fechaHoraVista = String.format(Locale.getDefault(),
                         "%04d-%02d-%02dT%s:00", anio, mes + 1, dia, horarioSeleccionado);
-                vm.crearTurno(mascota.getId(), motivo, fechaHoraISO);
+                vm.crearTurno(mascota.getId(), motivo, fechaHoraVista);
             }
         });
-//Fin Zona Crear Turno
+        vm.getCreado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigate(R.id.action_crearTurnoFragment_to_turnosFragment);
+            }
+        });
         return binding.getRoot();
     }
 }

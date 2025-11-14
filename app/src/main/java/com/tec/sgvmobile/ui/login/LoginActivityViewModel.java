@@ -46,7 +46,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
             errorMutable.setValue("Todos los campos son obligatorios");
             return;
         }
-        ApiClient.InmoService service = ApiClient.getInmoService();
+        ApiClient.VeterinariaService service = ApiClient.getVeteService();
         Call<String> call = service.loginForm(email, password);
         Log.d("loginn","Llamando a la api");
 
@@ -78,7 +78,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
         });
     }
     private void obtenerDatosUsuario(String token) {
-        ApiClient.InmoService service = ApiClient.getInmoService();
+        ApiClient.VeterinariaService service = ApiClient.getVeteService();
         Call<Usuario> callUsuario = service.getUsuario("Bearer " + token);
 
         callUsuario.enqueue(new Callback<Usuario>() {

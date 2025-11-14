@@ -15,11 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.databinding.FragmentMascotasBinding;
 import com.tec.sgvmobile.models.Mascota;
-import com.tec.sgvmobile.ui.inmuebles.MascotasViewModel;
-import com.tec.sgvmobile.ui.mascotas.MascotaAdapter;
-
 import java.util.List;
-
+ 
 public class MascotasFragment extends Fragment {
 
     private FragmentMascotasBinding binding;
@@ -30,7 +27,6 @@ public class MascotasFragment extends Fragment {
         binding = FragmentMascotasBinding.inflate(inflater, container, false);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.show();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mis mascotas");
         View root = binding.getRoot();
         vm.getlistaMascotas().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {
             @Override

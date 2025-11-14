@@ -28,16 +28,15 @@ public class ConsultasFragment extends Fragment {
         binding = FragmentConsultasBinding.inflate(inflater, container, false);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mis mascotas con consultas");
         View root = binding.getRoot();
 
         vm.getListaMascotasConConsultas().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {
             @Override
             public void onChanged(List<Mascota> mascotasConsultas) {
-                MascotasConConsultasAdapter ca = new MascotasConConsultasAdapter(getContext(), mascotasConsultas, getLayoutInflater());
+                MascotasConConsultasAdapter mcca = new MascotasConConsultasAdapter(getContext(), mascotasConsultas, getLayoutInflater());
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                binding.reciclerMascotasConConsultas.setLayoutManager(glm);
-                binding.reciclerMascotasConConsultas.setAdapter(ca);
+                binding.listaMascotasConConsultas.setLayoutManager(glm);
+                binding.listaMascotasConConsultas.setAdapter(mcca);
             }
         });
         vm.obtenerListaMascotasConConsultas();

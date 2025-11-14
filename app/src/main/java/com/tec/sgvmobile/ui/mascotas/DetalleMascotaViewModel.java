@@ -46,6 +46,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
     private MutableLiveData<Mascota> mMascota = new MutableLiveData<>();
     private MutableLiveData<Intent> intentCamara = new MutableLiveData<>(); //aca viaja el intent de abrir la camara
     private MutableLiveData<Boolean> solicitarPermisoCamara = new MutableLiveData<>(); //aca viaja el estado de la solicitud del permiso
+    private MutableLiveData<Boolean> dadoDeBaja = new MutableLiveData<>();
     private Uri nuevaImagenUri;
 
     public DetalleMascotaViewModel(@NonNull Application application) {
@@ -55,6 +56,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
     public LiveData<Integer> getMEspecie() {
         return mEspecie;
     }
+
     public LiveData<Integer> getMSexo() {
         return mSexo;
     }
@@ -65,6 +67,10 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
 
     public LiveData<String> getMTexto() {
         return mTexto;
+    }
+
+    public LiveData<Boolean> getDadoDeBaja() {
+        return dadoDeBaja;
     }
 
     public LiveData<Mascota> getMascota() {
@@ -123,6 +129,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             mMascota.setValue(m);
         }
     }
+
     public void cambioBoton(String textoBoton,
                             String nombre,
                             String especie,
@@ -179,7 +186,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
 
     private void actualizarMascota(final Mascota mascota) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
         try {
             RequestBody nombre = RequestBody.create(MediaType.parse("text/plain"), (mascota.getNombre()));
@@ -222,7 +229,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(getApplication(), "Error al procesar la imagen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "Error al procesar la imagen", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -249,6 +256,30 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
         }
         mEstado.setValue(false);
         mTexto.setValue("EDITAR");
+    }
+
+    public void baja(int idMascota) {
+        String token = ApiClient.leerToken(getApplication());
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
+        Call<Void> call = api.darBaja("Bearer " + token, idMascota);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplication(), "Mascota dada de baja correctamente.", Toast.LENGTH_LONG).show();
+                    dadoDeBaja.postValue(true);
+                } else {
+                    Toast.makeText(getApplication(), "Error al dar de baja la mascota.", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(getApplication(), "Error: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 

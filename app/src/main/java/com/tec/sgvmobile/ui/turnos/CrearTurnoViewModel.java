@@ -1,7 +1,6 @@
 package com.tec.sgvmobile.ui.turnos;
 
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,11 +35,11 @@ public class CrearTurnoViewModel extends AndroidViewModel {
     }
     public LiveData<Boolean> getCreado(){return creado;}
 
-    public void obtenerHorariosDisponibles(String fechaISO) {
+    public void obtenerHorariosDisponibles(String fecha) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
-        Call<List<String>> call = api.getHorariosDisponibles("Bearer " + token, fechaISO);
+        Call<List<String>> call = api.getHorariosDisponibles("Bearer " + token, fecha);
         call.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
@@ -58,15 +57,17 @@ public class CrearTurnoViewModel extends AndroidViewModel {
         });
     }
 
-    public void crearTurno(int idMascota, String motivo, String fechaHoraISO) {
+    public void crearTurno(int idMascota, String motivo, String fechaHoraVista) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
 
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-            Date fechaHora = formato.parse(fechaHoraISO);
+            Date fechaHora = formato.parse(fechaHoraVista);
+            if (motivo.trim().isEmpty() || motivo.trim().length() < 2){
+                motivo = "Sin motivo especificado";
+            }
             CrearTurnoDto body = new CrearTurnoDto(idMascota, motivo, fechaHora);
-
             Call<Turno> call = api.crearTurno("Bearer " + token, idMascota, body);
             call.enqueue(new Callback<Turno>() {
                 @Override

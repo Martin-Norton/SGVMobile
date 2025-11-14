@@ -43,7 +43,6 @@ public class CrearMascotaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Agregar mascota");
         binding = FragmentCrearMascotaBinding.inflate(inflater, container, false);
         mv = new ViewModelProvider(this).get(CrearMascotaViewModel.class);
         return binding.getRoot();
@@ -52,19 +51,21 @@ public class CrearMascotaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         ArrayAdapter<String> adapterSexo = new ArrayAdapter<>(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                R.layout.item_spinner,
                 new String[]{"Macho", "Hembra"}
         );
-        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterSexo.setDropDownViewResource(R.layout.spinner_dropdown);
         binding.spSexo.setAdapter(adapterSexo);
+
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                R.layout.item_spinner,
                 new String[]{"Canino", "Felino", "Roedor", "Ave", "Conejo", "Reptil"}
         );
-        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterEspecie.setDropDownViewResource(R.layout.spinner_dropdown);
         binding.spEspecie.setAdapter(adapterEspecie);
 
         arlCamara = registerForActivityResult(

@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
@@ -44,8 +46,6 @@ public class DetalleMascotaFragment extends Fragment {
         vm = new ViewModelProvider(this).get(DetalleMascotaViewModel.class);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Detalles de su mascota");
-
         ArrayAdapter<String> adapterSexo = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -53,12 +53,13 @@ public class DetalleMascotaFragment extends Fragment {
         );
         adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spSexo.setAdapter(adapterSexo);
+
         ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
                 new String[]{"Canino", "Felino", "Roedor", "Ave", "Conejo", "Reptil"}
         );
-        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterEspecie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spEspecie.setAdapter(adapterEspecie);
 
         arlCamara = registerForActivityResult(
@@ -96,25 +97,24 @@ public class DetalleMascotaFragment extends Fragment {
             public void onChanged(Mascota mascota) {
                 if (mascota == null) return;
                 binding.etNombreMascota.setText(mascota.getNombre());
-                vm.getMEspecie().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer especiePos) {
-                        binding.spEspecie.setSelection(especiePos);
-                    }
-                });
                 binding.etRaza.setText(mascota.getRaza());
                 binding.etEdad.setText(String.valueOf(mascota.getEdad()));
                 binding.etPeso.setText(String.valueOf(mascota.getPeso()));
-                vm.getMSexo().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer sexoPos) {
-                        binding.spSexo.setSelection(sexoPos);
-                    }
-                });
                 vm.mostrarImagen(binding.ivFoto, mascota.getImagen());
             }
         });
-
+        vm.getMEspecie().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer especiePos) {
+                binding.spEspecie.setSelection(especiePos);
+            }
+        });
+        vm.getMSexo().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer sexoPos) {
+                binding.spSexo.setSelection(sexoPos);
+            }
+        });
         vm.getMEstado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean estado) {
@@ -162,6 +162,25 @@ public class DetalleMascotaFragment extends Fragment {
         Bundle bundle = getArguments();
         Mascota mascota = (Mascota) bundle.get("mascotaBundle");
         vm.inicializarMascota(mascota);
+
+        binding.btBaja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new androidx.appcompat.app.AlertDialog.Builder(getContext())
+                        .setTitle("Vas a dar de baja a " + mascota.getNombre())
+                        .setMessage("¿Está seguro que desea dar de baja esta mascota? Esta acción no se puede deshacer")
+                        .setPositiveButton("Sí", (dialog, which) -> vm.baja(mascota.getId()))
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+        vm.getDadoDeBaja().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigate(R.id.action_detalleMascotaFragment_to_nav_mascotas);
+            }
+        });
 
         return binding.getRoot();
     }

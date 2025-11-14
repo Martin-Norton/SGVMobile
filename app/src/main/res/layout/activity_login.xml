@@ -8,27 +8,45 @@
     android:background="@color/backgroundColorA"
     tools:context=".ui.login.LoginActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/headerLogin"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imgLogoLogin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo veterinaria"
+            android:layout_marginBottom="12dp"/>
 
         <TextView
-            android:id="@+id/tvTituloLogin"
+            android:id="@+id/tvNombreClinica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenido"
+            android:text="Veterinaria San Francisco"
             android:textColor="@color/white"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginBottom="6dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvBienvenido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido/a"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tvUsuario"

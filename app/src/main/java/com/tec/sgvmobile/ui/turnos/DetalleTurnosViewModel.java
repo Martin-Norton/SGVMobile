@@ -27,7 +27,7 @@ public class DetalleTurnosViewModel extends AndroidViewModel {
 
     public void cargarTurnosFuturos(int idMascota) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Turno>> call = api.getTurnosFuturos("Bearer " + token, idMascota);
 
         call.enqueue(new Callback<List<Turno>>() {

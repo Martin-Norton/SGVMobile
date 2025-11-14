@@ -30,7 +30,6 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
         fab.hide();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Mis Datos");
         View root = binding.getRoot();
 
         vm.getMEstado().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -72,11 +71,6 @@ public class PerfilFragment extends Fragment {
                 binding.etTelefono.setText(usuario.getTelefono());
             }
         });
-
-        Intent intent = new Intent();
-        intent.putExtra("actualizado", true);
-        requireActivity().setResult(Activity.RESULT_OK, intent);
-        requireActivity().finish();
 
         vm.obtenerPerfil();
         return root;

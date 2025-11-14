@@ -122,10 +122,9 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:spinnerMode="dropdown"
-            android:background="@drawable/bg_edittext"
-            app:layout_constraintTop_toBottomOf="@id/tvEspecie"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvEspecie" />
         <TextView
             android:id="@+id/tvRaza"
             android:layout_width="wrap_content"
@@ -201,10 +200,9 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:spinnerMode="dropdown"
-            android:background="@drawable/bg_edittext"
-            app:layout_constraintTop_toBottomOf="@id/tvSexo"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvSexo" />
 
 
         <Button

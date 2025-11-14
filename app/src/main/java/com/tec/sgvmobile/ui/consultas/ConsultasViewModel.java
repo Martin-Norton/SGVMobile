@@ -34,7 +34,7 @@ public class ConsultasViewModel extends AndroidViewModel {
 
     public void obtenerListaMascotasConConsultas() {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Mascota>> call = api.obtenerMascotasConConsultas("Bearer " + token);
         call.enqueue(new Callback<List<Mascota>>() {
             @Override
@@ -44,16 +44,16 @@ public class ConsultasViewModel extends AndroidViewModel {
                     mascotasConConsultas.addAll(response.body());
                     listaMascotasConConsultas.postValue(mascotasConConsultas);
 
-                    Toast.makeText(getApplication(), "Cantidad de Mascotas con Consultas: " +  mascotasConConsultas.size(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "Sus mascotas que tienen historial de consultas: ", Toast.LENGTH_LONG).show();
 
                 } else {
-                    Toast.makeText(getApplication(), "Error al obtener Mascotas en onResponse", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "Hubo un problema al obtener las mascotas, intente nuevamente mas tarde", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Mascota>> call, Throwable t) {
-                Toast.makeText(getApplication(), "Error en la respuesta en onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

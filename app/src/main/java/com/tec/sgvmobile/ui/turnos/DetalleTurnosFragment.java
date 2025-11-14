@@ -36,7 +36,6 @@ public class DetalleTurnosFragment extends Fragment {
         if (fab != null) {
             fab.hide();
         }
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Próximos turnos");
         mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
         vm.cargarTurnosFuturos(mascota.getId());
         binding.tvTituloMascota.setText("Turnos de " + mascota.getNombre());

@@ -32,10 +32,11 @@ import retrofit2.http.Query;
 
 public class ApiClient {
     //public final static String BASE_URL = "http://192.168.0.103:5000/"; //depto cata
-    public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
+    //public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
     //public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
+    public final static String BASE_URL = "http://192.168.54.153:5000/"; //casa ale
 
-    public static InmoService getInmoService() {
+    public static VeterinariaService getVeteService() {
         Gson gson = new GsonBuilder().setLenient()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
@@ -44,7 +45,7 @@ public class ApiClient {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        return retrofit.create(InmoService.class);
+        return retrofit.create(VeterinariaService.class);
     }
 
     public static void guardarToken(Context context, String token) {
@@ -59,7 +60,7 @@ public class ApiClient {
         return sp.getString("token", null);
     }
 
-    public interface InmoService {
+    public interface VeterinariaService {
         @FormUrlEncoded
         @POST("api/auth/login")
         Call<String> loginForm(@Field("Usuario") String usuario, @Field("Clave") String clave);
@@ -103,11 +104,12 @@ public class ApiClient {
                 @Part("sexo") RequestBody sexo,
                 @Part MultipartBody.Part imagen
         );
-
+        @PUT("api/mascotas/baja/{id}")
+        Call<Void> darBaja(@Header("Authorization") String token, @Path("id") int id);
 //Fin Zona Mascotas
 //Zona Turnos
         @GET("api/turnos/mascotas-con-turnos")
-        Call<List<Mascota>> getConTurnos(@Header("Authorization") String token);
+        Call<List<Mascota>> getMascotasConTurnos(@Header("Authorization") String token);
 
         @GET("api/turnos/{id}/futuros")
         Call<List<Turno>> getTurnosFuturos(@Header("Authorization") String token, @Path("id") int idMascota);

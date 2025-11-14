@@ -2,7 +2,6 @@ package com.tec.sgvmobile.ui.turnos;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,20 +53,22 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
     public void onBindViewHolder(@NonNull ViewHolderTurno holder, int position) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Turno turno = listaTurnos.get(position);
-        Log.d("TurnoAdapter", "llenando con turno" + turno.getMotivo() );
 
         holder.tvMotivo.setText("Motivo: " + turno.getMotivo());
         holder.tvFecha.setText("El dia: " + (turno.getFecha() != null ? dateFormat.format(turno.getFecha()) : "-"));
         holder.tvHora.setText("A las: " + turno.getHora() + " hs" != null ? "A las: " + turno.getHora().substring(0,5) + " hs" : "A las: -");
-        holder.tvEstado.setText((turno.getEstado() == 1 ? "Activo" : "Cancelado"));
+        holder.tvEstado.setText((turno.getEstado() == 1 ? "Turno activo" : "Turno cancelado"));
 
-        holder.btCancelarTurno.setOnClickListener(v -> {
-            new androidx.appcompat.app.AlertDialog.Builder(context)
-                    .setTitle("Cancelar turno")
-                    .setMessage("¿Está seguro que desea cancelar este turno?")
-                    .setPositiveButton("Sí", (dialog, which) -> cancelarTurno(turno.getId()))
-                    .setNegativeButton("No", null)
-                    .show();
+        holder.btCancelarTurno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new androidx.appcompat.app.AlertDialog.Builder(context)
+                        .setTitle("Cancelar turno")
+                        .setMessage("¿Está seguro que desea cancelar este turno?")
+                        .setPositiveButton("Sí", (dialog, which) -> cancelarTurno(turno.getId()))
+                        .setNegativeButton("No", null)
+                        .show();
+            }
         });
     }
 
@@ -79,7 +80,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
     private void cancelarTurno(int idTurno) {
 
         String token = ApiClient.leerToken(inflater.getContext());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<Void> call = api.cancelarTurno("Bearer " + token, idTurno);
 
         call.enqueue(new Callback<Void>() {

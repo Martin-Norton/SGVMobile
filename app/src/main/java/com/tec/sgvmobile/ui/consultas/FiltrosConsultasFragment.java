@@ -28,7 +28,6 @@ public class FiltrosConsultasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFiltrosConsultasBinding.inflate(inflater, container, false);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filtrar consultas");
         vm = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(FiltrosConsultasViewModel.class);
@@ -95,7 +94,6 @@ public class FiltrosConsultasFragment extends Fragment {
                 bundle.putSerializable("consultasBundle", (java.io.Serializable) consultas);
                 Navigation.findNavController(binding.getRoot())
                         .navigate(R.id.action_filtrosConsultasFragment_to_resultadosBusquedaFragment, bundle);
-
             }
         });
         return binding.getRoot();

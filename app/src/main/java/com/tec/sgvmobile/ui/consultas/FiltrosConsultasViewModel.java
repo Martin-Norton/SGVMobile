@@ -34,12 +34,12 @@ public class FiltrosConsultasViewModel extends AndroidViewModel {
 
     public void buscarPorMotivo(int idMascota, String motivo) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Consulta>> call = api.obtenerConsultasPorMotivo("Bearer " + token, idMascota, motivo);
         call.enqueue(new Callback<List<Consulta>>() {
             @Override
             public void onResponse(Call<List<Consulta>> call, Response<List<Consulta>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body().toArray().length >= 1) {
                     consultas.clear();
                     consultas.addAll(response.body());
                     listaConsultas.postValue(consultas);
@@ -58,12 +58,12 @@ public class FiltrosConsultasViewModel extends AndroidViewModel {
     public void buscarEsteMes(int idMascota) {
         Log.d("motivo", "enviando consulta este mes para mascota con id: " + idMascota);
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Consulta>> call = api.obtenerConsultasEsteMes("Bearer " + token, idMascota);
         call.enqueue(new Callback<List<Consulta>>() {
             @Override
             public void onResponse(Call<List<Consulta>> call, Response<List<Consulta>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body().toArray().length >= 1 ) {
                     consultas.clear();
                     consultas.addAll(response.body());
                     listaConsultas.postValue(consultas);
@@ -81,12 +81,12 @@ public class FiltrosConsultasViewModel extends AndroidViewModel {
     }
     public void buscarEntreFechas(int idMascota, String desde, String hasta) {
         String token = ApiClient.leerToken(getApplication());
-        ApiClient.InmoService api = ApiClient.getInmoService();
+        ApiClient.VeterinariaService api = ApiClient.getVeteService();
         Call<List<Consulta>> call = api.obtenerConsultasEntreFechas("Bearer " + token, idMascota, desde, hasta);
         call.enqueue(new Callback<List<Consulta>>() {
             @Override
             public void onResponse(Call<List<Consulta>> call, Response<List<Consulta>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body().toArray().length >= 1) {
                     consultas.clear();
                     consultas.addAll(response.body());
                     listaConsultas.postValue(consultas);

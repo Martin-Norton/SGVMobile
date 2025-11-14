@@ -3,6 +3,7 @@ package com.tec.sgvmobile;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -48,12 +51,17 @@ public class MainActivity extends AppCompatActivity {
         });
         DrawerLayout drawer = binding.drawerLayout;
         navigationView = binding.navView;
-        View headerView = navigationView.getHeaderView(0);
-        TextView tvNombre = headerView.findViewById(R.id.tvNombre);
-        TextView tvEmail = headerView.findViewById(R.id.tvEmail);
+        navigationView.post(new Runnable() {
+            @Override
+            public void run() {
+                View headerView = navigationView.getHeaderView(0);
+                TextView tvNombre = headerView.findViewById(R.id.tvNombre);
+                TextView tvEmail = headerView.findViewById(R.id.tvEmail);
 
-        vm.getNombre().observe(this, tvNombre::setText);
-        vm.getEmail().observe(this, tvEmail::setText);
+                vm.getNombre().observe(MainActivity.this, tvNombre::setText);
+                vm.getEmail().observe(MainActivity.this, tvEmail::setText);
+            }
+        });
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.turnosFragment, R.id.consultasFragment,R.id.nav_logout)
@@ -77,10 +85,24 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_contacto) {
+            NavHostFragment navHostFragment =
+                    (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_main);
+            navHostFragment.getNavController().navigate(R.id.contactoFragment);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        vm.cargarDatosUsuario();
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }

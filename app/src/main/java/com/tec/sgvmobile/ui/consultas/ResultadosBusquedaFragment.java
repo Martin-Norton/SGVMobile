@@ -28,7 +28,6 @@ public class ResultadosBusquedaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm = new ViewModelProvider(this).get(ResultadosBusquedaViewModel.class);
         binding = FragmentResultadosBusquedaBinding.inflate(inflater, container, false);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Resultados de búsqueda");
         View root = binding.getRoot();
 
         vm.getListaConsultas().observe(getViewLifecycleOwner(), new Observer<List<Consulta>>() {
@@ -41,7 +40,7 @@ public class ResultadosBusquedaFragment extends Fragment {
             }
         });
         List<Consulta> consultas = (List<Consulta>) getArguments().getSerializable("consultasBundle");
-        vm.setConsultas(consultas);
+        vm.llenarMlistaConsultas(consultas);
         return root;
     }
 
