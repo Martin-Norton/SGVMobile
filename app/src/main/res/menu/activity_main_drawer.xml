@@ -24,6 +24,10 @@
             android:id="@+id/consultasFragment"
             android:icon="@drawable/consultas"
             android:title="@string/consultas" />
+        <item
+            android:id="@+id/tratamientosFragment"
+            android:icon="@drawable/inicio"
+            android:title="@string/vacunas_y_otros" />
 
         <item
             android:id="@+id/nav_logout"

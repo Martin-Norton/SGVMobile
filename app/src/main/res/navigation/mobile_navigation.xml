@@ -93,7 +93,7 @@
     <fragment
         android:id="@+id/consultasFragment"
         android:name="com.tec.sgvmobile.ui.consultas.ConsultasFragment"
-        android:label="Mis mascotas con consultas"
+        android:label="Mis consultas"
         tools:layout="@layout/fragment_consultas">
         <action
             android:id="@+id/action_consultasFragment_to_filtrosConsultasFragment"
@@ -131,4 +131,22 @@
         android:id="@+id/contactoFragment"
         android:name="com.tec.sgvmobile.ui.contacto.ContactoFragment"
         android:label="Contactanos" />
+    <fragment
+        android:id="@+id/tratamientosFragment"
+        android:name="com.tec.sgvmobile.ui.tratamientos.TratamientosFragment"
+        android:label="@string/vacunas_y_otros_tratamientos"
+        tools:layout="@layout/fragment_tratamientos" >
+        <action
+            android:id="@+id/action_tratamientosFragment_to_detalleTratamientosFragment"
+            app:destination="@id/detalleTratamientosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleTratamientosFragment"
+        android:name="com.tec.sgvmobile.ui.tratamientos.DetalleTratamientosFragment"
+        android:label="@string/vacunas_y_otros_tratamientos"
+        tools:layout="@layout/fragment_detalle_tratamientos" >
+        <action
+            android:id="@+id/action_detalleTratamientosFragment_to_tratamientosFragment"
+            app:destination="@id/tratamientosFragment" />
+    </fragment>
 </navigation>

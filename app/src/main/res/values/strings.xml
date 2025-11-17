@@ -21,4 +21,6 @@
     <string name="pantallaMascotas">Mis mascotas</string>
     <string name="pantallaLogout">Salir</string>
     <string name="pantallaDetalleMascota">Detalles de la mascota</string>
+    <string name="vacunas_y_otros">Vacunas y otros</string>
+    <string name="vacunas_y_otros_tratamientos">Vacunas y otros tratamientos</string>
 </resources>

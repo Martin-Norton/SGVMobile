@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.turnosFragment, R.id.consultasFragment,R.id.nav_logout)
+                R.id.nav_inicio, R.id.nav_perfil, R.id.nav_mascotas, R.id.turnosFragment, R.id.consultasFragment,R.id.tratamientosFragment,R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
