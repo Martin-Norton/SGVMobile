@@ -18,8 +18,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
 import com.tec.sgvmobile.models.Mascota;
 import com.tec.sgvmobile.request.ApiClient;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,6 +32,7 @@ import java.io.InputStream;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -154,25 +158,37 @@ public class CrearMascotaViewModel extends AndroidViewModel {
                 imagenPart = MultipartBody.Part.createFormData("imagen", "", empty);
             }
 
-            Call<Void> call = api.cargarMascota(
+            Call<ResponseBody> call = api.cargarMascota(
                     "Bearer " + token,
                     nombre, especie, raza, edadBody, pesoBody, sexo, imagenPart
             );
 
-            call.enqueue(new Callback<Void>() {
+            call.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getApplication(), "Mascota creada correctamente", Toast.LENGTH_LONG).show();
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.code() == 200) {
+                        try {
+                            JSONObject body = new JSONObject(new Gson().toJson(response.body()));
+                            String mensaje = body.optString("mensaje", "Operación realizada");
+                            Toast.makeText(getApplication(), mensaje, Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplication(), "Mascota creada o reactivada", Toast.LENGTH_LONG).show();
+                        }
+
                         mascotaCreada.postValue(true);
-                    } else {
-                        Toast.makeText(getApplication(), "Error al crear mascota: " + response.code(), Toast.LENGTH_LONG).show();
-                        Log.d("MascotaCrearVM", "Error: " + response.code());
                     }
+                    else if (response.code() == 409) {
+                        Toast.makeText(getApplication(), "La mascota ya existe y está activa", Toast.LENGTH_LONG).show();
+                        mascotaCreada.postValue(false);
+                    }
+                    else {
+                        Toast.makeText(getApplication(), "Error: " + response.code(), Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.e("MascotaCrearVM", "Fallo en conexión: " + t.getMessage());
                     Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
                 }

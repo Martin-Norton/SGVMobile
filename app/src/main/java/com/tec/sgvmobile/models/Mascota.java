@@ -13,6 +13,7 @@ public class Mascota implements Serializable {
     private String imagen;
     private int id_Dueno;
     private int estado;
+    private Turno proximoTurno;
 
     public Mascota() {
     }
@@ -106,5 +107,13 @@ public class Mascota implements Serializable {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public Turno getProximoTurno() {
+        return proximoTurno;
+    }
+
+    public void setProximoTurno(Turno proximoTurno) {
+        this.proximoTurno = proximoTurno;
     }
 }

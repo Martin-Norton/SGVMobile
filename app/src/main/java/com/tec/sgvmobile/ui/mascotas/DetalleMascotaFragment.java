@@ -119,11 +119,11 @@ public class DetalleMascotaFragment extends Fragment {
             @Override
             public void onChanged(Boolean estado) {
                 binding.etNombreMascota.setEnabled(estado);
-                binding.spEspecie.setEnabled(estado);
+                binding.spEspecie.setEnabled(false);
                 binding.etRaza.setEnabled(estado);
                 binding.etEdad.setEnabled(estado);
                 binding.etPeso.setEnabled(estado);
-                binding.spSexo.setEnabled(estado);
+                binding.spSexo.setEnabled(false);
                 binding.btBuscarFoto.setEnabled(estado);
                 binding.btCamara.setEnabled(estado);
             }

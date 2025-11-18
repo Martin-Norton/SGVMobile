@@ -16,6 +16,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,8 +34,8 @@ import retrofit2.http.Query;
 
 public class ApiClient {
     //public final static String BASE_URL = "http://192.168.0.103:5000/"; //depto cata
-    //public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
-    public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
+    public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
+    //public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
     //public final static String BASE_URL = "http://192.168.54.153:5000/"; //casa ale
     //public final static String BASE_URL = "http://192.168.100.78:5000/"; //casa roxy
 
@@ -96,7 +97,7 @@ public class ApiClient {
         );
         @Multipart
         @POST("api/mascotas/crear")
-        Call<Void> cargarMascota(
+        Call<ResponseBody> cargarMascota(
                 @Header("Authorization") String token,
                 @Part("nombre") RequestBody nombre,
                 @Part("especie") RequestBody especie,
@@ -110,8 +111,10 @@ public class ApiClient {
         Call<Void> darBaja(@Header("Authorization") String token, @Path("id") int id);
 //Fin Zona Mascotas
 //Zona Turnos
-        @GET("api/turnos/mascotas-con-turnos")
-        Call<List<Mascota>> getMascotasConTurnos(@Header("Authorization") String token);
+//        @GET("api/turnos/mascotas-con-turnos")
+//        Call<List<Mascota>> getMascotasConTurnos(@Header("Authorization") String token);
+        @GET("api/turnos/mascotas-con-proximo-turno")
+        Call<List<Mascota>> getMascotasConProximosTurnos(@Header("Authorization") String token);
 
         @GET("api/turnos/{id}/futuros")
         Call<List<Turno>> getTurnosFuturos(@Header("Authorization") String token, @Path("id") int idMascota);

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tec.sgvmobile.R;
 import com.tec.sgvmobile.models.Mascota;
 import com.bumptech.glide.Glide;
+import com.tec.sgvmobile.models.Turno;
 import com.tec.sgvmobile.request.ApiClient;
 
 import java.util.List;
@@ -35,14 +36,16 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
     @NonNull
     @Override
     public MascotasConTurnosAdapter.viewHolderMascota onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = li.inflate(R.layout.item_mascota, parent, false);
+        View itemView = li.inflate(R.layout.item_mascota_turno, parent, false);
         return new MascotasConTurnosAdapter.viewHolderMascota(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MascotasConTurnosAdapter.viewHolderMascota holder, int position) {
         Mascota mascotaActual = listado.get(position);
+        Turno proximo = mascotaActual.getProximoTurno();
         holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
+        holder.proximoTurno.setText("El día: " + proximo.getFecha() + " a las " + proximo.getHora());
         Glide.with(context)
                 .load(ApiClient.BASE_URL + mascotaActual.getImagen())
                 .placeholder(R.drawable.mascotas)
@@ -67,12 +70,15 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
     public class viewHolderMascota extends RecyclerView.ViewHolder {
 
         TextView nombre;
+        TextView proximoTurno;
         ImageView imagen;
+
 
         public viewHolderMascota(@NonNull View itemView) {
             super(itemView);
-            nombre = itemView.findViewById(R.id.tvNombreMascota);
-            imagen = itemView.findViewById(R.id.ivImagen);
+            nombre = itemView.findViewById(R.id.tvNombreMascotaT);
+            proximoTurno = itemView.findViewById(R.id.tvTurnoProximo);
+            imagen = itemView.findViewById(R.id.ivFotoMascota);
         }
     }
 }

@@ -68,7 +68,7 @@ public class TratamientoAdapter extends RecyclerView.Adapter<TratamientoAdapter.
             holder.tvEstado.setTextColor(Color.RED);
         } else if (diffDias <= 30) {
             estado = "Por vencer";
-            holder.tvEstado.setTextColor(Color.YELLOW);
+            holder.tvEstado.setTextColor(Color.BLUE);
         } else {
             estado = "Al día";
             holder.tvEstado.setTextColor(Color.GREEN);

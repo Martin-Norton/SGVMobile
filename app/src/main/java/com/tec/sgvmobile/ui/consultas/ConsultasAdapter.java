@@ -43,7 +43,7 @@ public class ConsultasAdapter extends RecyclerView.Adapter<ConsultasAdapter.View
         holder.tvFechaConsulta.setText("Fecha: " + consultaActual.getFecha());
         holder.tvMotivoConsulta.setText("Motivo: " + consultaActual.getMotivo());
         holder.tvDiagnosticoConsulta.setText("Diagnóstico: " + consultaActual.getDiagnostico());
-        holder.tvTratamientoConsulta.setText("Tratamiento: " + consultaActual.getTratamiento());
+        holder.tvDescripcionConsulta.setText("Descripcion: " + consultaActual.getDescripcion());
         holder.tvVeterinarioConsulta.setText("Veterinario ID: " + consultaActual.getId_Veterinario());
     }
 
@@ -53,13 +53,13 @@ public class ConsultasAdapter extends RecyclerView.Adapter<ConsultasAdapter.View
     }
 
     public class ViewHolderConsulta extends RecyclerView.ViewHolder {
-        TextView tvFechaConsulta, tvMotivoConsulta, tvDiagnosticoConsulta, tvTratamientoConsulta, tvVeterinarioConsulta;
+        TextView tvFechaConsulta, tvMotivoConsulta, tvDiagnosticoConsulta, tvDescripcionConsulta, tvVeterinarioConsulta;
         public ViewHolderConsulta(@NonNull View itemView) {
             super(itemView);
             tvFechaConsulta = itemView.findViewById(R.id.tvFechaConsulta);
             tvMotivoConsulta = itemView.findViewById(R.id.tvMotivoConsulta);
             tvDiagnosticoConsulta = itemView.findViewById(R.id.tvDiagnosticoConsulta);
-            tvTratamientoConsulta = itemView.findViewById(R.id.tvTratamientoConsulta);
+            tvDescripcionConsulta = itemView.findViewById(R.id.tvDescripcionConsulta);
             tvVeterinarioConsulta = itemView.findViewById(R.id.tvVeterinarioConsulta);
         }
     }

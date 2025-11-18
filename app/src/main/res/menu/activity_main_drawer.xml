@@ -26,7 +26,7 @@
             android:title="@string/consultas" />
         <item
             android:id="@+id/tratamientosFragment"
-            android:icon="@drawable/inicio"
+            android:icon="@drawable/vacuna"
             android:title="@string/vacunas_y_otros" />
 
         <item

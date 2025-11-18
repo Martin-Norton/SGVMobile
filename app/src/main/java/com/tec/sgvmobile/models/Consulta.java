@@ -8,20 +8,20 @@ public class Consulta implements Serializable {
     private String fecha;
     private String motivo;
     private String diagnostico;
-    private String tratamiento;
+    private String descripcion;
     private int id_Mascota;
     private int id_Veterinario;
 
     public Consulta() {
     }
 
-    public Consulta(int id, Integer id_Turno, String fecha, String motivo, String diagnostico, String tratamiento, int id_Mascota, int id_Veterinario) {
+    public Consulta(int id, Integer id_Turno, String fecha, String motivo, String diagnostico, String descripcion, int id_Mascota, int id_Veterinario) {
         this.id = id;
         this.id_Turno = id_Turno;
         this.fecha = fecha;
         this.motivo = motivo;
         this.diagnostico = diagnostico;
-        this.tratamiento = tratamiento;
+        this.descripcion = descripcion;
         this.id_Mascota = id_Mascota;
         this.id_Veterinario = id_Veterinario;
     }
@@ -66,12 +66,12 @@ public class Consulta implements Serializable {
         this.diagnostico = diagnostico;
     }
 
-    public String getTratamiento() {
-        return tratamiento;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTratamiento(String tratamiento) {
-        this.tratamiento = tratamiento;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getId_Mascota() {
