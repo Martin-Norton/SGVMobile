@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.tec.sgvmobile.dtos.CrearTurnoDto;
 import com.tec.sgvmobile.models.Consulta;
 import com.tec.sgvmobile.models.Mascota;
+import com.tec.sgvmobile.models.Publicidad;
 import com.tec.sgvmobile.models.Tratamiento;
 import com.tec.sgvmobile.models.Turno;
 import com.tec.sgvmobile.models.Usuario;
@@ -36,8 +37,6 @@ public class ApiClient {
     //public final static String BASE_URL = "http://192.168.0.103:5000/"; //depto cata
     public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
     //public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
-    //public final static String BASE_URL = "http://192.168.54.153:5000/"; //casa ale
-    //public final static String BASE_URL = "http://192.168.100.78:5000/"; //casa roxy
 
     public static VeterinariaService getVeteService() {
         Gson gson = new GsonBuilder().setLenient()
@@ -111,8 +110,6 @@ public class ApiClient {
         Call<Void> darBaja(@Header("Authorization") String token, @Path("id") int id);
 //Fin Zona Mascotas
 //Zona Turnos
-//        @GET("api/turnos/mascotas-con-turnos")
-//        Call<List<Mascota>> getMascotasConTurnos(@Header("Authorization") String token);
         @GET("api/turnos/mascotas-con-proximo-turno")
         Call<List<Mascota>> getMascotasConProximosTurnos(@Header("Authorization") String token);
 
@@ -166,5 +163,7 @@ public class ApiClient {
         @GET("/api/tratamientos/mascota/{id}")
         Call<List<Tratamiento>> tratamientosPorMascota(@Header("Authorization") String token, @Path("id") int id);
 //Fin Zona Tratamientos
+        @GET("/api/publicidades/activas")
+        Call<List<Publicidad>> getPublicidadesActivas(@Header("Authorization") String token);
     }
 }

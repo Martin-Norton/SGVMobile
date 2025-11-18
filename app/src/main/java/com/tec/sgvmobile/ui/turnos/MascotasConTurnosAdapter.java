@@ -19,7 +19,9 @@ import com.bumptech.glide.Glide;
 import com.tec.sgvmobile.models.Turno;
 import com.tec.sgvmobile.request.ApiClient;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTurnosAdapter.viewHolderMascota> {
 
@@ -42,10 +44,12 @@ public class MascotasConTurnosAdapter extends RecyclerView.Adapter<MascotasConTu
 
     @Override
     public void onBindViewHolder(@NonNull MascotasConTurnosAdapter.viewHolderMascota holder, int position) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
         Mascota mascotaActual = listado.get(position);
         Turno proximo = mascotaActual.getProximoTurno();
         holder.nombre.setText("Nombre: " + mascotaActual.getNombre());
-        holder.proximoTurno.setText("El día: " + proximo.getFecha() + " a las " + proximo.getHora());
+        holder.proximoTurno.setText("El día: " + dateFormat.format(proximo.getFecha()) + " a las " + proximo.getHora().substring(0,2) + "hs");
         Glide.with(context)
                 .load(ApiClient.BASE_URL + mascotaActual.getImagen())
                 .placeholder(R.drawable.mascotas)

@@ -6,8 +6,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/inicio"
-            android:title="@string/ubicaci_n_de_la_veterinaria" />
+            android:icon="@drawable/publicidad"
+            android:title="@string/promos_y_noticias" />
         <item
             android:id="@+id/nav_perfil"
             android:icon="@drawable/perfil"

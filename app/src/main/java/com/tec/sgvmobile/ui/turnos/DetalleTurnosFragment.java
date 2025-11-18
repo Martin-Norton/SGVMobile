@@ -33,9 +33,8 @@ public class DetalleTurnosFragment extends Fragment {
         binding = FragmentDetalleTurnosBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(DetalleTurnosViewModel.class);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
+
         mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
         vm.cargarTurnosFuturos(mascota.getId());
         binding.tvTituloMascota.setText("Turnos de " + mascota.getNombre());

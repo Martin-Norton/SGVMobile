@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tec.sgvmobile.R;
@@ -37,8 +38,8 @@ public class TurnosFragment extends Fragment {
             @Override
             public void onChanged(List<Mascota> mascotasTurnos) {
                 MascotasConTurnosAdapter mcta = new MascotasConTurnosAdapter(getContext(), mascotasTurnos, getLayoutInflater());
-                GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                binding.listaMascotasTurnos.setLayoutManager(glm);
+                LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                binding.listaMascotasTurnos.setLayoutManager(llm);
                 binding.listaMascotasTurnos.setAdapter(mcta);
             }
         });

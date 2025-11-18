@@ -196,7 +196,11 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
             RequestBody peso = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mascota.getPeso()));
             RequestBody sexo = RequestBody.create(MediaType.parse("text/plain"), (mascota.getSexo()));
             RequestBody estado = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mascota.getEstado()));
-            RequestBody imagen = RequestBody.create(MediaType.parse("text/plain"), (mascota.getImagen()));
+            String imagenActual = mascota.getImagen() != null ? mascota.getImagen() : "";
+            RequestBody imagen = RequestBody.create(
+                    MediaType.parse("text/plain"),
+                    imagenActual
+            );
 
             MultipartBody.Part imagenArchivo = null;
             if (nuevaImagenUri != null) {
@@ -219,7 +223,11 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
                         mMascota.postValue(mascota);
                         Toast.makeText(getApplication(), "Mascota actualizada correctamente.", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplication(), "Error al actualizar: " + response.code(), Toast.LENGTH_LONG).show();
+                        if (response.code() == 409){
+                            Toast.makeText(getApplication(), "Esa mascota ya existe!!", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getApplication(), "Error al actualizar: " + response.code(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
 
@@ -229,7 +237,7 @@ public class DetalleMascotaViewModel extends AndroidViewModel {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(getApplication(), "Error al procesar la imagen", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Error al procesar la imagen: " + e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
