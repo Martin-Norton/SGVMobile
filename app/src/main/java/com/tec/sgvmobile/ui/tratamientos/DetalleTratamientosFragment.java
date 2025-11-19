@@ -37,9 +37,7 @@ public class DetalleTratamientosFragment extends Fragment {
         binding = FragmentDetalleTratamientosBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(DetalleTratamientosViewModel.class);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
         mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
         vm.cargarTratamientos(mascota.getId());
         binding.tvTituloTratamiento.setText("Tratamientos de " + mascota.getNombre());

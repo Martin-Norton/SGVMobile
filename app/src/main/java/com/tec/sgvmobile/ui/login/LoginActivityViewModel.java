@@ -25,19 +25,15 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
     public LoginActivityViewModel(@NonNull Application application) {
         super(application);
+        usuarioMutable = new MutableLiveData<>();
+        errorMutable = new MutableLiveData<>();
     }
 
     public LiveData<Usuario> getusuario() {
-        if (usuarioMutable == null) {
-            usuarioMutable = new MutableLiveData<>();
-        }
         return usuarioMutable;
     }
 
     public LiveData<String> getError() {
-        if (errorMutable == null) {
-            errorMutable = new MutableLiveData<>();
-        }
         return errorMutable;
     }
 
@@ -48,8 +44,6 @@ public class LoginActivityViewModel extends AndroidViewModel {
         }
         ApiClient.VeterinariaService service = ApiClient.getVeteService();
         Call<String> call = service.loginForm(email, password);
-        Log.d("loginn","Llamando a la api");
-
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -58,7 +52,6 @@ public class LoginActivityViewModel extends AndroidViewModel {
                     String token = response.body();
                     Log.d("loginn","Obtuvimos el token");
                     ApiClient.guardarToken(getApplication(),token);
-                    Log.d("token", token);
                     obtenerDatosUsuario(token);
                     Intent intent = new Intent(getApplication(), MainActivity.class);
                     intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
@@ -66,6 +59,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                 } else {
                     Log.d("token", response.message());
                     Log.d("token", response.code() + "");
+                    errorMutable.postValue("Usuario y/o Clave incorrectos");
                     Log.d("token", response.errorBody() + "");
                 }
             }

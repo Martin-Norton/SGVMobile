@@ -34,7 +34,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiClient {
-    //public final static String BASE_URL = "http://192.168.0.103:5000/"; //depto cata
+    //public final static String BASE_URL = "http://192.168.0.102:5000/"; //depto cata
     public final static String BASE_URL = "http://192.168.0.4:5000/"; //MI DEPTO
     //public final static String BASE_URL = "http://10.119.255.16:5000/"; //escuela
 

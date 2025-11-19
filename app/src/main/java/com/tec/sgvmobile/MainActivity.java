@@ -68,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        binding.appBarMain.btAgregar.setOnClickListener(v -> {
-            navController.navigate(R.id.crearMascotaFragment);
-        });        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        binding.appBarMain.btAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.crearMascotaFragment);
+            }
+        });
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 

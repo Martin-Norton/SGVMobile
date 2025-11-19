@@ -55,9 +55,9 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.ViewHolderTu
         Turno turno = listaTurnos.get(position);
 
         holder.tvMotivo.setText("Motivo: " + turno.getMotivo());
-        holder.tvFecha.setText("El dia: " + (turno.getFecha() != null ? dateFormat.format(turno.getFecha()) : "-"));
-        holder.tvHora.setText("A las: " + turno.getHora() + " hs" != null ? "A las: " + turno.getHora().substring(0,5) + " hs" : "A las: -");
-        holder.tvEstado.setText((turno.getEstado() == 1 ? "Turno activo" : "Turno cancelado"));
+        holder.tvFecha.setText("El dia: " + dateFormat.format(turno.getFecha()));
+        holder.tvHora.setText("A las: " + turno.getHora().substring(0,5));
+        holder.tvEstado.setText("Turno activo");
 
         holder.btCancelarTurno.setOnClickListener(new View.OnClickListener() {
             @Override

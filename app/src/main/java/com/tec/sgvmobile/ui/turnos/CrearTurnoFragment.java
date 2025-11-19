@@ -37,9 +37,8 @@ public class CrearTurnoFragment extends Fragment {
         binding = FragmentCrearTurnoBinding.inflate(inflater, container, false);
         vm = new ViewModelProvider(this).get(CrearTurnoViewModel.class);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
+
 
         mascota = (Mascota) getArguments().getSerializable("mascotaBundle");
 

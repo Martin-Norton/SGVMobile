@@ -29,9 +29,8 @@ public class MisMascotasParaTurnoFragment extends Fragment {
         vm = new ViewModelProvider(this).get(MisMascotasParaTurnoViewModel.class);
         binding = FragmentMisMascotasParaTurnoBinding.inflate(inflater, container, false);
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
+
         View root = binding.getRoot();
 
         vm.getMascotas().observe(getViewLifecycleOwner(), new Observer<List<Mascota>>() {

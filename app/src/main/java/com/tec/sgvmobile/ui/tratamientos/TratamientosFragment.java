@@ -32,9 +32,7 @@ public class TratamientosFragment extends Fragment {
         binding = FragmentTratamientosBinding.inflate(inflater, container, false);
 
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
 
         View root = binding.getRoot();
 

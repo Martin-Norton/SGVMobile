@@ -28,9 +28,8 @@ public class TurnosFragment extends Fragment {
         binding = FragmentTurnosBinding.inflate(inflater, container, false);
 
         FloatingActionButton fab = requireActivity().findViewById(R.id.btAgregar);
-        if (fab != null) {
-            fab.hide();
-        }
+        fab.hide();
+
 
         View root = binding.getRoot();
 
